@@ -1,0 +1,174 @@
+#include "Player.h"
+
+#include <assert.h>
+#include <iostream>
+using namespace std;
+
+Player::Player( const char* name ) : 
+	m_name( name ),
+	m_health( maximumPlayerHealth ),
+	m_isDead( false )
+	
+{
+}
+
+Player::~Player()
+{
+}
+
+void	Player::SetupForNewGame()
+{ 
+	m_mana = 1;
+	m_health = maximumPlayerHealth;
+	m_hand.Clear();
+	m_isDead = false;
+}
+
+void	Player::PickNewHand()
+{
+	int cardCount = numCardsInBeginningHand;
+	if (cardCount > m_deck.GetNumCards())
+	{
+		cardCount = m_deck.GetNumCards();
+	}
+	for (int i = 0; i < cardCount; i++)
+	{
+		int numCards = m_deck.GetNumCards();
+		int r = rand() % numCards;
+		m_hand.AddCard( m_deck.GetCard( r ) );
+		m_deck.RemoveCard( r );
+	}
+}
+
+void	Player::DrawCard( bool displayCardStats )
+{
+	if (m_deck.GetNumCards() == 0)
+	{
+		cout << "Player takes damage for having no cards" << endl;
+		m_health--;
+		return;
+	}
+
+	const Card& c = m_deck.GetCard( 0 );
+	if ( displayCardStats )
+	{
+		c.PrintSimpleStats();
+	}
+	m_hand.AddCard( c );
+	m_deck.RemoveCard(0);
+}
+
+bool	Player::PlayCard( unsigned int index, Player& opponent )
+{
+	const Card& card = m_hand.GetCard( index );
+	if ( card.m_manaCost )
+	{
+		assert( card.m_manaCost <= m_mana );// should be checked before playing card
+		m_mana -= card.m_manaCost;
+	}
+	if ( card.GetDamage() ) // as per #7 in design
+	{
+		opponent.ApplyDamage( card.GetDamage() );
+	}
+	if ( card.GetHealing() ) // as per #7 in design
+	{
+		ApplyHealing( card.GetHealing() );
+	}
+	if ( card.GetHowManyToDraw( ) ) 
+	{
+		int num = card.GetHowManyToDraw();
+		cout << "Drawing cards .. num: " << card.GetHowManyToDraw( ) << endl;
+		for ( int i = 0; i < num; i++ )
+		{
+			DrawCard( true );
+		}
+	}
+	if ( card.GetManaEarned( ) ) // as per #7 in design
+	{
+		m_mana += card.GetManaEarned();
+		cout << "Mana earned: " << card.GetManaEarned() << endl;
+	}
+	m_hand.RemoveCard( index );
+	return true;
+}
+
+bool	Player::ApplyDamage( int damage )
+{
+	if ( m_isDead == false )
+	{
+		m_health -= damage;
+		if ( m_health < 0 )
+		{
+			m_health = 0;
+			m_isDead = true;
+		}
+		return true;
+	}
+	return false;
+}
+
+bool	Player::ApplyHealing( int healing )
+{
+	if ( m_isDead == false )
+	{
+		m_health += healing;
+		if ( m_health > maximumPlayerHealth )
+		{
+			m_health = maximumPlayerHealth;
+		}
+		return true;
+	}
+	return false;
+}
+
+void	Player::TurnSetup( int newMana )
+{
+	m_mana += newMana;
+	if (m_mana > maximumPlayerMana)
+	{
+		m_mana = maximumPlayerMana;
+	}
+	if (m_mana < 0)
+	{
+		m_mana = 0;
+	}
+}
+
+void	Player::PrintPlayerState() const
+{
+	cout << "--------- stats --------" << endl;
+	cout << "       name: " << m_name << endl;
+	cout << "  deck size: " << m_deck.GetNumCards() << endl;
+	cout << "     health: " << m_health << endl;
+	cout << "       mana: " << m_mana << endl;
+	cout << "------------------------" << endl;
+	PrintHand( true );
+	cout << "------------------------" << endl;
+}
+
+void	Player::PrintAsOpponentState() const
+{
+	cout << "--------- stats --------" << endl;
+	cout << "       name: " << m_name << endl;
+	cout << "     health: " << m_health << endl;
+	cout << "       mana: " << m_mana << endl;
+	cout << "------------------------" << endl;
+}
+
+void	Player::PrintHand( bool includeIndices ) const
+{
+	cout << "          hand   " << endl;
+	int  numCards = m_hand.GetNumCards();
+	cout << "------------------------------" << endl;
+	for (int i = 0; i < numCards; i++)
+	{
+		const Card& card = m_hand.GetCard(i);
+		int index = i;
+		if (includeIndices == false)
+		{
+			index = -1;
+		}
+		card.PrintSimpleStats( index );
+	}
+	cout << "------------------------------" << endl;
+}
