@@ -89,12 +89,15 @@
   <ItemGroup>
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="Deck.cpp" />
+    <ClCompile Include="Global.cpp" />
     <ClCompile Include="Hearthstone.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Testing.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Card.h" />
     <ClInclude Include="Deck.h" />
+    <ClInclude Include="Global.h" />
     <ClInclude Include="Player.h" />
   </ItemGroup>
   <ItemGroup>

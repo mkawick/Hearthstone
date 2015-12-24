@@ -35,6 +35,10 @@ public:
 	void	PrintHand( bool includeIndices ) const;
 	void	ApplyCard( const Card& card, Player& opponent );
 
+#if defined (_DEBUG)
+	void	GiveMana( int amount ) { m_mana += amount; }
+#endif
+
 private:
 	std::string m_name;
 	Deck		m_deck;

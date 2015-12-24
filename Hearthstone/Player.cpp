@@ -61,11 +61,7 @@ void	Player::DrawCard( bool displayCardStats )
 bool	Player::PlayCard( unsigned int index, Player& opponent )
 {
 	const Card& card = m_hand.GetCard( index );
-	if ( card.m_manaCost )
-	{
-		assert( card.m_manaCost <= m_mana );// should be checked before playing card
-		m_mana -= card.m_manaCost;
-	}
+	
 	ApplyCard( card, opponent );
 	m_hand.RemoveCard( index );
 	return true;
@@ -154,6 +150,11 @@ void	Player::PrintHand( bool includeIndices ) const
 
 void	Player::ApplyCard( const Card& card, Player& opponent )
 {
+	if ( card.m_manaCost )
+	{
+		assert( card.m_manaCost <= m_mana );// should be checked before playing card
+		m_mana -= card.m_manaCost;
+	}
 	if ( card.GetDamage( ) ) // as per #7 in design
 	{
 		cout << "Applying damage to " << opponent.GetName() << endl;
