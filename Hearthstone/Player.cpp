@@ -72,9 +72,10 @@ bool	Player::ApplyDamage( int damage )
 	if ( m_isDead == false )
 	{
 		m_health -= damage;
-		if ( m_health < 0 )
+		if ( m_health <= 0 )
 		{
 			m_health = 0;
+			cout << "Player has died: " << m_name << endl;
 			m_isDead = true;
 		}
 		return true;
@@ -90,6 +91,7 @@ bool	Player::ApplyHealing( int healing )
 		if ( m_health > maximumPlayerHealth )
 		{
 			m_health = maximumPlayerHealth;
+			cout << "Player has full health: " << m_name << endl;
 		}
 		return true;
 	}

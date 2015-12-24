@@ -43,8 +43,16 @@ int main( int argc, const char* argv[] )
 	InitialzeDeckInOrder( player2, deck );
 	
 	int cardIndex = FindCardInDictionary( 5, 4, 0, 0, 1 );
-	player1.GiveMana( 8 );
+	player1.GiveMana( 128 );
+	player2.GiveMana( 1 );
 	//player1.ApplyCard( GetCardFromDictionary( deck.GetCard( cardIndex ) ), player2 );
+
+	for ( int i = 0; i < 7; i++ ) // kill player 2
+	player1.ApplyCard( GetCardFromDictionary( FindCardInDictionary( 5, 4, 0, 0, 1 ) ), player2 );
+
+	player1.ApplyCard( GetCardFromDictionary( FindCardInDictionary( 2, 0, 2, 0, 0 ) ), player2 );
+	player2.ApplyCard( GetCardFromDictionary( FindCardInDictionary( 2, 0, 2, 0, 0 ) ), player1 );
+
 	player1.ApplyCard( GetCardFromDictionary( FindCardInDictionary( 5, 4, 0, 0, 1 ) ), player2 );
 	WaitForUser();
 
