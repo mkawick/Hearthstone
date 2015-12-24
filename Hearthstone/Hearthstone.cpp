@@ -41,9 +41,11 @@ void	PrintEndOfTurnMessage()
 void	PlayTurn( Player& attacker, Player& defender, const Deck& deck )
 {
 	cout << "Attacker: " << attacker.GetName( ) << endl;
+	cout << "Defender: " << defender.GetName( ) << endl;
+
 	cout << attacker.GetName( ) << " receives more mana " << endl;
 	attacker.TurnSetup( 1 ); // design doc #8
-	cout << attacker.GetName( ) << " draws" << endl;
+	cout << attacker.GetName( ) << " draws a new card. Card is:" << endl;
 	attacker.DrawCard( true );
 
 	while ( attacker.IsDead( ) == false && defender.IsDead() == false )
@@ -55,8 +57,8 @@ void	PlayTurn( Player& attacker, Player& defender, const Deck& deck )
 			PrintEndOfTurnMessage();
 			break;
 		}
-		cout << "Attacker: " << attacker.GetName( ) << endl;
-		cout << "Defender: " << defender.GetName( ) << endl;
+		//cout << "Attacker: " << attacker.GetName( ) << endl;
+		//cout << "Defender: " << defender.GetName( ) << endl;
 
 		defender.PrintAsOpponentState( );	
 		int numOptions = attacker.PrintState( );
@@ -109,6 +111,8 @@ void	PlayTurn( Player& attacker, Player& defender, const Deck& deck )
 	
 	WaitForUser( );
 	cout << "====================================" << endl;
+	cout << "            player switch" << endl;
+	cout << "====================================" << endl;
 }
 
 
@@ -143,12 +147,12 @@ int main( int argc, const char* argv[] )
 	PrepGlobalDeck( );// basically loading all cards into memory
 
 	deck.PrepBasicDeck();
-	InitialzeDeckRandomly( player1, deck ); 
-	InitialzeDeckRandomly( player2, deck );
 	
 
 #ifdef TESTING
 	WaitForUser();
+	InitialzeDeckRandomly( player1, deck ); 
+	InitialzeDeckRandomly( player2, deck );
 	ApplySimpleCardTest(player1, player2, deck);
 
 	player1.PrintState( );
@@ -157,9 +161,7 @@ int main( int argc, const char* argv[] )
 	WaitForUser( );
 #endif
 	
-	PlayGame( player1, player2, deck );
-
-	
+	PlayGame( player1, player2, deck ); // we could put a menuing system here to allow a restart, historical tracking, etc
 
 	WaitForUser( );
 
