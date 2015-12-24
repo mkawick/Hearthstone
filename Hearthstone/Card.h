@@ -13,11 +13,12 @@ public:
 	Card( int manaCost, int damage, int heal, int cardsDrawn, int manaEarned, const char* name );
 	~Card();
 
-	int 	GetCost() const { return m_manaCost; }
-	int 	GetDamage() const { return m_damage; }
-	int 	GetHealing() const { return m_heal; }
-	int 	GetNumToDraw() const { return m_numCardsToDraw; }
-	int 	GetManaEarned() const { return m_manaEarned; }
+	std::string GetName() const { return m_name; }
+	int 		GetCost() const { return m_manaCost; }
+	int 		GetDamage() const { return m_damage; }
+	int 		GetHealing() const { return m_heal; }
+	int 		GetNumToDraw() const { return m_numCardsToDraw; }
+	int 		GetManaEarned() const { return m_manaEarned; }
 	const std::string& 	GetMessage() const { return m_message; }
 
 	void	PrintStats( int index = -1 ) const;

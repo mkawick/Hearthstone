@@ -28,13 +28,13 @@ void	ApplySimpleCardTest( Player& attacker, Player& defender, const Deck& deck )
 
 	cout << "Attacker: " << attacker.GetName( ) << endl;
 	cout << "attacker receives more mana " << endl;
-	attacker.TurnSetup( 1 );
+	attacker.TurnSetup( 1 ); // design doc #8
 	cout << "attacker draws" << endl;
 	attacker.DrawCard( true );
 	attacker.PrintState( );
 
 	cout << "picking card to play" << endl;
-	Deck& attackerDeck = attacker.Gethand( );
+	Deck& attackerDeck = attacker.GetHand( );
 
 	for ( int i = 0; i < attackerDeck.GetNumCards( ); i++ )// the number of cards may change
 	{
@@ -53,7 +53,7 @@ void	ApplySimpleCardTest( Player& attacker, Player& defender, const Deck& deck )
 	defender.PrintState( );
 
 	cout << "picking card to play" << endl;
-	Deck& defenderDeck = defender.Gethand( );
+	Deck& defenderDeck = defender.GetHand( );
 
 	for ( int i = 0; i < defenderDeck.GetNumCards( ); i++ )// the number of cards may change
 	{
@@ -65,4 +65,27 @@ void	ApplySimpleCardTest( Player& attacker, Player& defender, const Deck& deck )
 	}
 	cout << "//-------------------------------------------" << endl;
 
+}
+
+void	ApplySimpleCardTest2( Player& player1, Player& player2, const Deck& deck )
+{
+	player1.SetupForNewGame( );
+	player2.PrintState( );
+	player2.SetupForNewGame( );
+
+	InitialzeDeckInOrder( player1, deck );
+	InitialzeDeckInOrder( player2, deck );
+
+	int cardIndex = FindCardInDictionary( 5, 4, 0, 0, 1 );
+	player1.GiveMana( 128 );
+	player2.GiveMana( 1 );
+	//player1.ApplyCard( GetCardFromDictionary( deck.GetCard( cardIndex ) ), player2 );
+
+	for ( int i = 0; i < 7; i++ ) // kill player 2
+		player1.ApplyCard( GetCardFromDictionary( FindCardInDictionary( 5, 4, 0, 0, 1 ) ), player2 );
+
+	player1.ApplyCard( GetCardFromDictionary( FindCardInDictionary( 2, 0, 2, 0, 0 ) ), player2 );
+	player2.ApplyCard( GetCardFromDictionary( FindCardInDictionary( 2, 0, 2, 0, 0 ) ), player1 );
+
+	player1.ApplyCard( GetCardFromDictionary( FindCardInDictionary( 5, 4, 0, 0, 1 ) ), player2 );
 }

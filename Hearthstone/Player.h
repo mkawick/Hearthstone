@@ -21,15 +21,16 @@ public:
 	bool	ApplyHealing( int healing );
 	
 	const std::string& GetName() const { return m_name; }
-	Deck&	Getdeck() { return m_deck; } // work directly on the data allows different algorithms to modify the data easily
-	Deck&	Gethand( ) { return m_hand; }
+	Deck&	GetDeck() { return m_deck; } // work directly on the data allows different algorithms to modify the data easily
+	Deck&	GetHand( ) { return m_hand; }
 
 	void	TurnSetup( int newMana = 1 );
+	bool	HasEnoughManaToPlay() const;
 
 	// the following are for logging and debug only
-	void	PrintState() const;
+	int		PrintState() const;
 	void	PrintAsOpponentState() const;
-	void	PrintHand( bool includeIndices ) const;
+	int		PrintHand( bool includeIndices ) const;
 	void	ApplyCard( const Card& card, Player& opponent );
 
 #if defined (_DEBUG)
@@ -38,7 +39,7 @@ public:
 
 private:
 	std::string m_name;
-	Deck		m_deck;
+	Deck		m_deck; // design doc #3
 	Deck		m_hand;
 	int			m_health;
 	int			m_mana;

@@ -38,13 +38,14 @@ void	RandomizeWithIndices( std::vector <int>& indices, int num )
 	}*/
 	cout << endl;
 }
+
 void	InitialzeDeckRandomly( Player& deckReceiver, const Deck& availableDeck )
 {
 	int num = availableDeck.GetNumCards( );
 	std::vector <int> indices;
 	RandomizeWithIndices( indices, num );
 
-	Deck& deck = deckReceiver.Getdeck( );// acting directly on the data
+	Deck& deck = deckReceiver.GetDeck( );// acting directly on the data
 
 	for ( auto it = indices.begin( ); it != indices.end( ); ++it )
 	{
@@ -52,12 +53,11 @@ void	InitialzeDeckRandomly( Player& deckReceiver, const Deck& availableDeck )
 	}
 }
 
-
 void	InitialzeDeckInOrder( Player& deckReceiver, const Deck& availableDeck )
 {
 	int num = availableDeck.GetNumCards( );
 
-	Deck& deck = deckReceiver.Getdeck( );// acting directly on the data
+	Deck& deck = deckReceiver.GetDeck( );// acting directly on the data
 	deck.Clear( );
 
 	for ( int i = 0; i < num; i++ )
@@ -65,8 +65,6 @@ void	InitialzeDeckInOrder( Player& deckReceiver, const Deck& availableDeck )
 		deck.AddCard( availableDeck.GetCard( i ) );
 	}
 }
-
-
 
 void	WaitForUser( )
 {

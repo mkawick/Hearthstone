@@ -42,7 +42,7 @@ void	Player::PickNewHand()
 
 void	Player::DrawCard( bool displayCardStats )
 {
-	if (m_deck.GetNumCards() == 0)
+	if (m_deck.GetNumCards() == 0) // design doc #9
 	{
 		cout << "Player takes damage for having no cards" << endl;
 		m_health--;
@@ -55,7 +55,7 @@ void	Player::DrawCard( bool displayCardStats )
 		GetCardFromDictionary( c ).PrintSimpleStats( );
 	}
 	m_hand.AddCard( c );
-	m_deck.RemoveCard(0);
+	m_deck.RemoveCard(0); // design doc #5
 }
 
 bool	Player::PlayCard( unsigned int index, Player& opponent )
@@ -111,7 +111,19 @@ void	Player::TurnSetup( int newMana )
 	}
 }
 
-void	Player::PrintState() const
+bool	Player::HasEnoughManaToPlay( ) const
+{
+	int  numCards = m_hand.GetNumCards( );
+	for ( int i = 0; i < numCards; i++ )
+	{
+		auto card = GetCardFromDictionary( m_hand.GetCard( i ) );
+		if ( card.GetCost() <= m_mana )
+			return true;
+	}
+	return false;
+}
+
+int		Player::PrintState() const
 {
 	cout << "--------- stats --------" << endl;
 	cout << "       name: " << m_name << endl;
@@ -119,8 +131,10 @@ void	Player::PrintState() const
 	cout << "     health: " << m_health << endl;
 	cout << "       mana: " << m_mana << endl;
 	cout << "------------------------" << endl;
-	PrintHand( true );
+	int numOptions = PrintHand( true );
 	cout << "------------------------" << endl;
+
+	return numOptions;
 }
 
 void	Player::PrintAsOpponentState() const
@@ -132,7 +146,7 @@ void	Player::PrintAsOpponentState() const
 	cout << "------------------------" << endl;
 }
 
-void	Player::PrintHand( bool includeIndices ) const
+int		Player::PrintHand( bool includeIndices ) const
 {
 	cout << "          hand   " << endl;
 	int  numCards = m_hand.GetNumCards();
@@ -148,6 +162,7 @@ void	Player::PrintHand( bool includeIndices ) const
 		card.PrintSimpleStats( index );
 	}
 	cout << "------------------------------" << endl;
+	return numCards;
 }
 
 void	Player::ApplyCard( const Card& card, Player& opponent )

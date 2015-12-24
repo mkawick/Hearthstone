@@ -8,6 +8,7 @@ extern const int maximumPlayerHealth;  // design doc #4
 extern const int numCardsInBeginningHand; // design doc #4
 
 void	ApplySimpleCardTest( Player& attacker, Player& defender, const Deck& deck );
+void	ApplySimpleCardTest2( Player& attacker, Player& defender, const Deck& deck );
 
 void	Print( const Deck& deck );
 void	RandomizeWithIndices( std::vector <int>& indices, int num );
