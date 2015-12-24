@@ -21,6 +21,7 @@ void	Player::SetupForNewGame()
 	m_mana = 1;
 	m_health = maximumPlayerHealth;
 	m_hand.Clear();
+	m_deck.Clear();
 	m_isDead = false;
 }
 
@@ -42,12 +43,12 @@ void	Player::PickNewHand()
 
 void	Player::DrawCard( bool displayCardStats )
 {
-	if (m_deck.GetNumCards() == 0) // design doc #9
+	/*if (m_deck.GetNumCards() == 0) // design doc #9
 	{
 		cout << "Player takes damage for having no cards" << endl;
 		m_health--;
 		return;
-	}
+	}*/
 
 	auto c = m_deck.GetCard( 0 );
 	if ( displayCardStats )

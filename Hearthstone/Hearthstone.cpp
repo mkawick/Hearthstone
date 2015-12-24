@@ -41,33 +41,35 @@ void	PrintEndOfTurnMessage()
 void	PlayTurn( Player& attacker, Player& defender, const Deck& deck )
 {
 	cout << "Attacker: " << attacker.GetName( ) << endl;
-	cout << "attacker receives more mana " << endl;
+	cout << attacker.GetName( ) << " receives more mana " << endl;
 	attacker.TurnSetup( 1 ); // design doc #8
-	cout << "attacker draws" << endl;
+	cout << attacker.GetName( ) << " draws" << endl;
 	attacker.DrawCard( true );
 
 	while ( attacker.IsDead( ) == false && defender.IsDead() == false )
 	{	
 		if ( attacker.HasEnoughManaToPlay() == 0 )
 		{
-			cout << "player does not have enough mana to play" << endl;
+			cout << endl;
+			cout << "ERROR: player does not have enough mana to play" << endl;
 			PrintEndOfTurnMessage();
 			break;
 		}
+		cout << "Attacker: " << attacker.GetName( ) << endl;
 		cout << "Defender: " << defender.GetName( ) << endl;
 
 		defender.PrintAsOpponentState( );	
 		int numOptions = attacker.PrintState( );
-		if ( numOptions == 0 )
+		int totalNumCards = attacker.GetDeck().GetNumCards();
+		if ( totalNumCards == 0 )
 		{
-			cout << "player is out of cards" << endl;
-			PrintEndOfTurnMessage();
-			break;
+			cout << "ERROR: player is out of cards" << endl;
+			attacker.ApplyDamage( 1 ); // design doc #9
 		}
 
+
 		cout << endl;
-		cout << "Attacker should enter a number to play a card or one of the following options:" << endl;
-		cout << "p) Pass" << endl;
+		cout << attacker.GetName() << " should enter a number to play a card 'p' to pass:" << endl;
 
 		string mystr;
 		getline( cin, mystr );
@@ -106,6 +108,7 @@ void	PlayTurn( Player& attacker, Player& defender, const Deck& deck )
 	}
 	
 	WaitForUser( );
+	cout << "====================================" << endl;
 }
 
 
@@ -116,6 +119,8 @@ void	PlayGame( Player& player1, Player& player2, const Deck& deck )
 	player2.SetupForNewGame( );
 	InitialzeDeckRandomly( player1, deck );
 	InitialzeDeckRandomly( player2, deck );
+	player1.PickNewHand( );
+	player2.PickNewHand( );
 
 	cout << "Beginning new game" << endl;
 	cout << "----------------------" << endl;
