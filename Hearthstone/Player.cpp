@@ -49,10 +49,10 @@ void	Player::DrawCard( bool displayCardStats )
 		return;
 	}
 
-	const Card& c = m_deck.GetCard( 0 );
+	auto c = m_deck.GetCard( 0 );
 	if ( displayCardStats )
 	{
-		c.PrintSimpleStats();
+		GetCardFromDictionary( c ).PrintSimpleStats( );
 	}
 	m_hand.AddCard( c );
 	m_deck.RemoveCard(0);
@@ -60,9 +60,9 @@ void	Player::DrawCard( bool displayCardStats )
 
 bool	Player::PlayCard( unsigned int index, Player& opponent )
 {
-	const Card& card = m_hand.GetCard( index );
+	auto card = m_hand.GetCard( index );
 	
-	ApplyCard( card, opponent );
+	ApplyCard( GetCardFromDictionary( card ), opponent );
 	m_hand.RemoveCard( index );
 	return true;
 }
@@ -137,7 +137,7 @@ void	Player::PrintHand( bool includeIndices ) const
 	cout << "------------------------------" << endl;
 	for (int i = 0; i < numCards; i++)
 	{
-		const Card& card = m_hand.GetCard(i);
+		auto card = GetCardFromDictionary( m_hand.GetCard( i ) );
 		int index = i;
 		if (includeIndices == false)
 		{

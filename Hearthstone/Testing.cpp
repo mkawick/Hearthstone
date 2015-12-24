@@ -38,8 +38,8 @@ void	ApplySimpleCardTest( Player& attacker, Player& defender, const Deck& deck )
 
 	for ( int i = 0; i < attackerDeck.GetNumCards( ); i++ )// the number of cards may change
 	{
-		auto card = attackerDeck.GetCard( i );
-		if ( card.m_manaCost <= attacker.GetMana( ) )
+		auto card = GetCardFromDictionary( attackerDeck.GetCard( i ) );
+		if ( card.GetCost() <= attacker.GetMana( ) )
 		{
 			attacker.PlayCard( i, defender );
 		}
@@ -57,8 +57,8 @@ void	ApplySimpleCardTest( Player& attacker, Player& defender, const Deck& deck )
 
 	for ( int i = 0; i < defenderDeck.GetNumCards( ); i++ )// the number of cards may change
 	{
-		auto card = defenderDeck.GetCard( i );
-		if ( card.m_manaCost <= defender.GetMana( ) )
+		auto card = GetCardFromDictionary( defenderDeck.GetCard( i ) );
+		if ( card.GetCost() <= defender.GetMana( ) )
 		{
 			defender.PlayCard( i, attacker );
 		}

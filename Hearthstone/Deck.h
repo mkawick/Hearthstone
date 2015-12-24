@@ -3,24 +3,25 @@
 #include <vector>
 #include "Card.h"
 
-typedef std::vector <Card> CardList;
+typedef std::vector <int> CardList;
+
 class Deck
 {
 public:
 	Deck();
 	~Deck();
 
-	void	AddCard( const Card& card ); 
+	void	AddCard( int indexInDictionary ); 
 	void	Clear() { m_cards.clear(); }
 	void	PrintDeck();
 
 	int		GetNumCards() const { return m_cards.size(); }
-	const Card& GetCard( unsigned int index ) const;
+	int		GetCard( unsigned int index ) const;// each card indexes the global dictionary
 //	Deck	Randomi
 
 	// utils
 	void	RemoveCard( int index );
-	void	PrepStaticDeck();
+	void	PrepBasicDeck();
 
 	// testing
 	const CardList & GetCardList() const { return m_cards; }

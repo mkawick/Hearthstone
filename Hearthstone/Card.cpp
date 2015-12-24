@@ -1,4 +1,5 @@
 #include "Card.h"
+#include <assert.h>
 
 #include <iostream>
 using namespace std;
@@ -63,4 +64,43 @@ void	Card::PrintSimpleStats( int index ) const
 		cout << "  manaEarned: " << m_manaEarned << endl;
 	}
 	cout << endl;
+}
+
+
+void	CardDictionary::AddCard( const Card& card )
+{
+	cardList.push_back( card );
+}
+
+const Card& CardDictionary::GetCard( unsigned int index ) const
+{
+	assert( index < cardList.size( ) );
+	if ( index >= cardList.size( ) )
+	{
+		cout << "ERROR: Bad card index. " << endl;
+		return cardList[0];
+	}
+	return cardList[index];
+}
+
+int CardDictionary::FindCard( int cost, int damage, int heal, int numToDraw, int manaEarned )
+{
+	int num = cardList.size( );
+	//auto cardList = cardList.GetCardList( );
+
+	for ( int i = 0; i < num; i++ )// I played with lots of different iterator types here and this is best
+	{
+		const Card& card = cardList[i];
+		if ( card.GetCost() == cost &&
+			card.GetDamage( ) == damage &&
+			card.GetHealing( ) == heal &&
+			card.GetNumToDraw( ) == numToDraw &&
+			card.GetManaEarned( ) == manaEarned )
+		{
+			return  i;
+		}
+	}
+
+
+	return -1;// just for the compiler
 }

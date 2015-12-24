@@ -5,7 +5,7 @@
 // through normal accessors
 class Player;
 #include <string>
-
+#include <vector>
 
 class Card
 {
@@ -38,3 +38,19 @@ public:
 class Card_a
 {
 };*/
+
+class CardDictionary
+{
+public:// no c'tor needed 
+	
+	int		GetNumCards() const { return cardList.size(); }
+	void	AddCard( const Card& card );
+	const Card& GetCard( unsigned int index ) const;
+
+	// we will not remove cards from the dictionary
+
+	int		FindCard( int damage, int heal, int numToDraw, int manaEarned );
+
+private:
+	std::vector <Card> cardList;
+};

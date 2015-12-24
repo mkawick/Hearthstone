@@ -1,4 +1,5 @@
 #include "Deck.h"
+#include "Global.h"
 #include <assert.h>
 #include <iostream>
 using namespace std;
@@ -10,18 +11,18 @@ Deck::Deck()
 Deck::~Deck()
 {
 }
-
+/*
 void	Deck::AddCard(  const Card& card )
 {
 	m_cards.push_back(card);
-}
+}*/
 
 void	Deck::PrintDeck()
 {
 }
 
 
-const Card& Deck::GetCard( unsigned int index ) const
+int Deck::GetCard( unsigned int index ) const
 {
 	assert(index < m_cards.size());
 	if (index >= m_cards.size())
@@ -32,7 +33,7 @@ const Card& Deck::GetCard( unsigned int index ) const
 	return m_cards[index];
 }
 
-void	Deck::RemoveCard(int index)
+void	Deck::RemoveCard( int index )
 {
 	if (index < m_cards.size())
 	{
@@ -40,56 +41,56 @@ void	Deck::RemoveCard(int index)
 	}
 }
 
-void	Deck::PrepStaticDeck()
+void	Deck::PrepBasicDeck()  // design doc #2
 {
-	Card card_a(1, 1, 0, 0, 0, "deal 1 damage and cost 1 mana");
+	auto card_a = FindCardInDictionary( 1, 1, 0, 0, 0 );
 	for (int i = 0; i<10; i++)
 	{
 		AddCard(card_a);
 	}
 
-	Card card_b(2, 2, 0, 0, 0, "deal 2 damage and cost 2 mana");
+	auto  card_b = FindCardInDictionary( 2, 2, 0, 0, 0 );
 	for (int i = 0; i<4; i++)
 	{
 		AddCard(card_b);
 	}
 
-	Card card_c(3, 3, 0, 0, 0, "deal 3 damage and cost 3 mana");
+	auto card_c = FindCardInDictionary( 3, 3, 0, 0, 0 );
 	for (int i = 0; i<2; i++)
 	{
 		AddCard(card_c);
 	}
 
-	Card card_d(4, 4, 0, 0, 0, "deal 4 damage and cost 4 mana");
+	auto card_d = FindCardInDictionary( 4, 4, 0, 0, 0 );
 	for (int i = 0; i<2; i++)
 	{
 		AddCard(card_d);
 	}
 
-	Card card_e(5, 5, 0, 0, 0, "deal 5 damage and cost 5 mana");
+	auto card_e = FindCardInDictionary( 5, 5, 0, 0, 0 );
 	for (int i = 0; i<2; i++)
 	{
 		AddCard(card_e);
 	}
 
-	Card card_f(1, 0, 1, 0, 0, "heal 1 damage and cost 1 mana");
+	auto card_f = FindCardInDictionary( 1, 0, 1, 0, 0 );
 	for (int i = 0; i<5; i++)
 	{
 		AddCard(card_f);
 	}
 
-	Card card_g(2, 0, 2, 0, 0, "heal 2 damage and cost 2 mana");
+	auto card_g = FindCardInDictionary( 2, 0, 2, 0, 0 );
 	for (int i = 0; i<2; i++)
 	{
 		AddCard(card_g);
 	}
 
-	Card card_h(1, 1, 0, 1, 0, "deal 1 damage, cost 1 mana, draw 1 card");
+	auto card_h = FindCardInDictionary( 1, 1, 0, 1, 0 );
 	for (int i = 0; i<2; i++)
 	{
 		AddCard(card_h);
 	}
 
-	Card card_i(5, 4, 0, 0, 1, "deal 4 damage, cost 5 mana, return 1 mana, output message");
+	auto card_i = FindCardInDictionary( 5, 4, 0, 0, 1 );
 	AddCard(card_i);
 }

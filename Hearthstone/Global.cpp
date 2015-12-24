@@ -1,18 +1,25 @@
 #include "Deck.h"
 #include "Player.h"
 #include <conio.h>
+#include <assert.h>
 
 #include <algorithm>    // std::random_shuffle
 #include <iostream>
 using namespace std;
 #include "Global.h"
 
+const int maximumPlayerMana = 10; // design doc #1
+const int maximumPlayerHealth = 30;  // design doc #4
+const int numCardsInBeginningHand = 4; // design doc #4
+
+CardDictionary		globalCardDictionary;
+
 void	Print( const Deck& deck )
 {
 	int num = deck.GetNumCards( );
 	for ( int i = 0; i<num; i++ )
 	{
-		deck.GetCard( i ).PrintStats( );
+		GetCardFromDictionary( deck.GetCard( i ) ).PrintStats( );
 	}
 }
 
@@ -59,29 +66,62 @@ void	InitialzeDeckInOrder( Player& deckReceiver, const Deck& availableDeck )
 	}
 }
 
-int FindCard( const Deck& deck, int damage, int heal, int numToDraw, int manaEarned )
-{
-	int num = deck.GetNumCards( );
-	auto cardList = deck.GetCardList( );
 
-	for ( int i = 0; i < num; i++ )// I played with lots of different iterator types here and this is best
-	{
-		const Card& card = cardList[i];
-		if ( card.GetDamage( ) == damage &&
-			card.GetHealing( ) == heal &&
-			card.GetNumToDraw( ) == numToDraw &&
-			card.GetManaEarned( ) == manaEarned )
-		{
-			return  i;
-		}
-	}
-
-
-	return -1;// just for the compiler
-}
 
 void	WaitForUser( )
 {
 	cout << "press any key to continue" << endl;
 	getch( );
+}
+
+void	PrepGlobalDeck()  // design doc #2
+{
+	Card card_a( 1, 1, 0, 0, 0, "deal 1 damage and cost 1 mana" );
+	globalCardDictionary.AddCard( card_a );
+
+	Card card_b( 2, 2, 0, 0, 0, "deal 2 damage and cost 2 mana" );
+	globalCardDictionary.AddCard( card_b );
+
+	Card card_c( 3, 3, 0, 0, 0, "deal 3 damage and cost 3 mana" );
+	globalCardDictionary.AddCard( card_c );
+
+	Card card_d( 4, 4, 0, 0, 0, "deal 4 damage and cost 4 mana" );
+	globalCardDictionary.AddCard( card_d );
+
+	Card card_e( 5, 5, 0, 0, 0, "deal 5 damage and cost 5 mana" );
+	globalCardDictionary.AddCard( card_e );
+
+	Card card_f( 1, 0, 1, 0, 0, "heal 1 damage and cost 1 mana" );
+	globalCardDictionary.AddCard( card_f );
+
+	Card card_g( 2, 0, 2, 0, 0, "heal 2 damage and cost 2 mana" );
+	globalCardDictionary.AddCard( card_g );
+
+	Card card_h( 1, 1, 0, 1, 0, "deal 1 damage, cost 1 mana, draw 1 card" );
+	globalCardDictionary.AddCard( card_h );
+
+	Card card_i( 5, 4, 0, 0, 1, "deal 4 damage, cost 5 mana, return 1 mana, output message" );
+	globalCardDictionary.AddCard( card_i );
+}
+
+
+int		GetDictionarySize()
+{
+	return globalCardDictionary.GetNumCards();
+}
+
+const Card& GetCardFromDictionary( int index )
+{
+	assert( index < globalCardDictionary.GetNumCards( ) );
+	if ( index >= globalCardDictionary.GetNumCards( ) )
+	{
+		cout << "ERROR: Bad card index. " << endl;
+		return globalCardDictionary.GetCard(0);
+	}
+	return globalCardDictionary.GetCard(index);
+}
+
+int		FindCardInDictionary( int cost, int damage, int heal, int numToDraw, int manaEarned )
+{
+	return globalCardDictionary.FindCard( cost, damage, heal, numToDraw, manaEarned );
 }

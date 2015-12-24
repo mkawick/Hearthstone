@@ -1,10 +1,7 @@
 #pragma once
 
 #include "Deck.h"
-
-const int maximumPlayerMana = 10;
-const int maximumPlayerHealth = 30;
-const int numCardsInBeginningHand = 4;
+#include "Global.h"
 
 class Player
 {
