@@ -19,7 +19,7 @@ public:
 	void	SetupForNewGame();
 	void	PickNewHand();
 	void	DrawCard( bool displayCardStats );
-	bool	PlayCard( unsigned int index, Player& opponent);
+	bool	PlayCard( unsigned int index, Player& opponent );
 	bool	ApplyDamage( int damage );
 	bool	ApplyHealing( int healing );
 	
@@ -28,9 +28,12 @@ public:
 	Deck&	Gethand( ) { return m_hand; }
 
 	void	TurnSetup( int newMana = 1 );
-	void	PrintPlayerState() const;
+
+	// the following are for logging and debug only
+	void	PrintState() const;
 	void	PrintAsOpponentState() const;
 	void	PrintHand( bool includeIndices ) const;
+	void	ApplyCard( const Card& card, Player& opponent );
 
 private:
 	std::string m_name;

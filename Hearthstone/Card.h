@@ -1,14 +1,5 @@
 #pragma once
 
-// you may wonder why I went this route. I worked on Agricola, Ascension, and 
-// quite a few other card games and having a purely data driven model is much more flexible.
-// Since you mentioned thinking about the design for the future...
-
-// It also means that the AI can be written in a way that doesn't look for specific cards 
-// but looks for potential advantages as you apply a GA to it. In any case, I could easily
-// have used an inheritance model, but if I am really thinking for the long-term
-// then a paramaterized model is much better.
-
 // I also decided that this would probably be initialized through static data or from an 
 // excel sheet so this constructor model works.. we could certainly have done the same 
 // through normal accessors
@@ -25,7 +16,7 @@ public:
 	int 	GetCost() const { return m_manaCost; }
 	int 	GetDamage() const { return m_damage; }
 	int 	GetHealing() const { return m_heal; }
-	int 	GetHowManyToDraw() const { return m_numCardsToDraw; }
+	int 	GetNumToDraw() const { return m_numCardsToDraw; }
 	int 	GetManaEarned() const { return m_manaEarned; }
 
 	void	PrintStats( int index = -1 ) const;

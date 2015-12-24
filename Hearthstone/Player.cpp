@@ -66,28 +66,7 @@ bool	Player::PlayCard( unsigned int index, Player& opponent )
 		assert( card.m_manaCost <= m_mana );// should be checked before playing card
 		m_mana -= card.m_manaCost;
 	}
-	if ( card.GetDamage() ) // as per #7 in design
-	{
-		opponent.ApplyDamage( card.GetDamage() );
-	}
-	if ( card.GetHealing() ) // as per #7 in design
-	{
-		ApplyHealing( card.GetHealing() );
-	}
-	if ( card.GetHowManyToDraw( ) ) 
-	{
-		int num = card.GetHowManyToDraw();
-		cout << "Drawing cards .. num: " << card.GetHowManyToDraw( ) << endl;
-		for ( int i = 0; i < num; i++ )
-		{
-			DrawCard( true );
-		}
-	}
-	if ( card.GetManaEarned( ) ) // as per #7 in design
-	{
-		m_mana += card.GetManaEarned();
-		cout << "Mana earned: " << card.GetManaEarned() << endl;
-	}
+	ApplyCard( card, opponent );
 	m_hand.RemoveCard( index );
 	return true;
 }
@@ -134,7 +113,7 @@ void	Player::TurnSetup( int newMana )
 	}
 }
 
-void	Player::PrintPlayerState() const
+void	Player::PrintState() const
 {
 	cout << "--------- stats --------" << endl;
 	cout << "       name: " << m_name << endl;
@@ -171,4 +150,32 @@ void	Player::PrintHand( bool includeIndices ) const
 		card.PrintSimpleStats( index );
 	}
 	cout << "------------------------------" << endl;
+}
+
+void	Player::ApplyCard( const Card& card, Player& opponent )
+{
+	if ( card.GetDamage( ) ) // as per #7 in design
+	{
+		cout << "Applying damage to " << opponent.GetName() << endl;
+		opponent.ApplyDamage( card.GetDamage( ) );
+	}
+	if ( card.GetHealing( ) ) // as per #7 in design
+	{
+		cout << "Applying healing to " << GetName( ) << endl;
+		ApplyHealing( card.GetHealing( ) );
+	}
+	if ( card.GetNumToDraw( ) )
+	{
+		int num = card.GetNumToDraw( );
+		cout << "Drawing cards .. num: " << card.GetNumToDraw( ) << endl;
+		for ( int i = 0; i < num; i++ )
+		{
+			DrawCard( true );
+		}
+	}
+	if ( card.GetManaEarned( ) ) // as per #7 in design
+	{
+		m_mana += card.GetManaEarned( );
+		cout << "Mana earned: " << card.GetManaEarned( ) << endl;
+	}
 }

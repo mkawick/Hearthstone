@@ -3,6 +3,7 @@
 #include <vector>
 #include "Card.h"
 
+typedef std::vector <Card> CardList;
 class Deck
 {
 public:
@@ -20,6 +21,9 @@ public:
 	// utils
 	void	RemoveCard( int index );
 	void	PrepStaticDeck();
+
+	// testing
+	const CardList & GetCardList() const { return m_cards; }
 private:
-	std::vector <Card> m_cards;
+	CardList m_cards;
 };

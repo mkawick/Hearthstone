@@ -3,6 +3,7 @@
 
 #include "Deck.h"
 #include "Player.h"
+#include <assert.h>
 #include <conio.h>
 #include <random>
 #include <algorithm>    // std::random_shuffle
@@ -48,6 +49,8 @@ void	InitialzeDeckRandomly( Player& deckReceiver, const Deck& availableDeck )
 		deck.AddCard( availableDeck.GetCard( *it ) );
 	}
 }
+
+
 void	InitialzeDeckInOrder(Player& deckReceiver, const Deck& availableDeck)
 {
 	int num = availableDeck.GetNumCards();
@@ -72,10 +75,10 @@ void	ApplySimpleCardTest(Player& attacker, Player& defender, const Deck& deck)
 	defender.PickNewHand();
 
 	cout << "Defender: " << defender.GetName() << endl;
-	defender.PrintPlayerState();
+	defender.PrintState();
 
 	cout << "Attacker: " << attacker.GetName() << endl;
-	attacker.PrintPlayerState();
+	attacker.PrintState();
 
 	cout << "Beginning game ..." << endl << endl << endl;
 	//while ( )
@@ -87,7 +90,7 @@ void	ApplySimpleCardTest(Player& attacker, Player& defender, const Deck& deck)
 	attacker.TurnSetup( 1 );
 	cout << "attacker draws" << endl; 
 	attacker.DrawCard( true );
-	attacker.PrintPlayerState();
+	attacker.PrintState();
 
 	cout << "picking card to play" << endl;
 	Deck& attackerDeck = attacker.Gethand();
@@ -106,7 +109,7 @@ void	ApplySimpleCardTest(Player& attacker, Player& defender, const Deck& deck)
 	defender.TurnSetup( 1 );
 	cout << "defender draws" << endl;
 	defender.DrawCard( true );
-	defender.PrintPlayerState( );
+	defender.PrintState( );
 
 	cout << "picking card to play" << endl;
 	Deck& defenderDeck = defender.Gethand( );
@@ -123,6 +126,27 @@ void	ApplySimpleCardTest(Player& attacker, Player& defender, const Deck& deck)
 	
 }
 
+int FindCard( const Deck& deck, int damage, int heal, int numToDraw, int manaEarned )
+{
+	int num = deck.GetNumCards();
+	auto cardList = deck.GetCardList();
+
+	for ( int i = 0; i < num; i ++ )// I played with lots of different iterator types here and this is best
+	{
+		const Card& card = cardList[i];
+		if ( card.GetDamage() == damage &&
+			card.GetHealing() == heal &&
+			card.GetNumToDraw() == numToDraw &&
+			card.GetManaEarned() == manaEarned )
+		{
+			return  i;
+		}
+	} 
+
+
+	return -1;// just for the compiler
+}
+
 int main( int argc, const char* argv[] )
 {
 	Deck deck;
@@ -134,7 +158,17 @@ int main( int argc, const char* argv[] )
 	getch();
 
 	ApplySimpleCardTest(player1, player2, deck);
+
+	player1.PrintState( );
+
+	player1.SetupForNewGame( );
+	player2.PrintState( );
+	player2.SetupForNewGame( );
+
+	InitialzeDeckInOrder( player1, deck );
+	InitialzeDeckInOrder( player2, deck );
 	
+	int cardIndex = FindCard( deck, 4, 0, 0, 1 );
 	//Print(deck);
 	//Print( player1.Getdeck() );
 	//Print( player2.Getdeck() );
