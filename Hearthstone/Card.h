@@ -18,12 +18,14 @@ public:
 	int 	GetHealing() const { return m_heal; }
 	int 	GetNumToDraw() const { return m_numCardsToDraw; }
 	int 	GetManaEarned() const { return m_manaEarned; }
+	const std::string& 	GetMessage() const { return m_message; }
 
 	void	PrintStats( int index = -1 ) const;
 	void	PrintSimpleStats( int index = -1 ) const;
 	//virtual void	Play() {}
 
 	void	PlayCard( Player& personPlayingCard, Player& opponent ) const;
+	void	AddMessage( const std::string& message ) { m_message = message; }  // design doc #2
 
 public:
 	int 		m_manaCost;
@@ -32,6 +34,7 @@ public:
 	int 		m_numCardsToDraw;
 	int 		m_manaEarned;
 	std::string m_name;
+	std::string m_message;
 };
 
 /*
@@ -49,7 +52,7 @@ public:// no c'tor needed
 
 	// we will not remove cards from the dictionary
 
-	int		FindCard( int damage, int heal, int numToDraw, int manaEarned );
+	int		FindCard( int cost, int damage, int heal, int numToDraw, int manaEarned );
 
 private:
 	std::vector <Card> cardList;

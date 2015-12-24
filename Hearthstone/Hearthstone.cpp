@@ -23,8 +23,10 @@ int main( int argc, const char* argv[] )
 {
 	Deck deck;
 	Player player1( "player1" ), player2( "player2" );
+	PrepGlobalDeck( );// basically loading all cards into memory
 
-	deck.PrepStaticDeck();
+	//deck.PrepStaticDeck();
+	deck.PrepBasicDeck();
 	InitialzeDeckRandomly( player1, deck ); 
 	InitialzeDeckRandomly( player2, deck );
 	WaitForUser();
@@ -40,9 +42,10 @@ int main( int argc, const char* argv[] )
 	InitialzeDeckInOrder( player1, deck );
 	InitialzeDeckInOrder( player2, deck );
 	
-	int cardIndex = FindCard( deck, 4, 0, 0, 1 );
+	int cardIndex = FindCardInDictionary( 5, 4, 0, 0, 1 );
 	player1.GiveMana( 8 );
-	player1.ApplyCard( deck.GetCard( cardIndex ), player2 );
+	//player1.ApplyCard( GetCardFromDictionary( deck.GetCard( cardIndex ) ), player2 );
+	player1.ApplyCard( GetCardFromDictionary( FindCardInDictionary( 5, 4, 0, 0, 1 ) ), player2 );
 	WaitForUser();
 
 	//Print(deck);

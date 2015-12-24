@@ -179,4 +179,8 @@ void	Player::ApplyCard( const Card& card, Player& opponent )
 		m_mana += card.GetManaEarned( );
 		cout << "Mana earned: " << card.GetManaEarned( ) << endl;
 	}
+	if ( card.GetMessage().length() )
+	{
+		cout << card.GetMessage( ) << endl;
+	}
 }

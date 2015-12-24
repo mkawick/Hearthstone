@@ -101,6 +101,7 @@ void	PrepGlobalDeck()  // design doc #2
 	globalCardDictionary.AddCard( card_h );
 
 	Card card_i( 5, 4, 0, 0, 1, "deal 4 damage, cost 5 mana, return 1 mana, output message" );
+	card_i.AddMessage( "You will never defeat me!" );
 	globalCardDictionary.AddCard( card_i );
 }
 

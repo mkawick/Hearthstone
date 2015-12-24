@@ -11,18 +11,18 @@ Deck::Deck()
 Deck::~Deck()
 {
 }
-/*
-void	Deck::AddCard(  const Card& card )
+
+void	Deck::AddCard( int indexInDictionary )
 {
-	m_cards.push_back(card);
-}*/
+	m_cards.push_back( indexInDictionary );
+}
 
 void	Deck::PrintDeck()
 {
 }
 
 
-int Deck::GetCard( unsigned int index ) const
+int		Deck::GetCard( unsigned int index ) const
 {
 	assert(index < m_cards.size());
 	if (index >= m_cards.size())
