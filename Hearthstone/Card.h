@@ -11,14 +11,14 @@ class Card
 {
 public:
 	Card( int manaCost, int damage, int heal, int cardsDrawn, int manaEarned, const char* name );
-	~Card();
+	//~Card();// default is fine
 
-	std::string GetName() const { return m_name; }
 	int 		GetCost() const { return m_manaCost; }
 	int 		GetDamage() const { return m_damage; }
 	int 		GetHealing() const { return m_heal; }
 	int 		GetNumToDraw() const { return m_numCardsToDraw; }
 	int 		GetManaEarned() const { return m_manaEarned; }
+	std::string GetName() const { return m_name; }
 	const std::string& 	GetMessage() const { return m_message; }
 
 	void		PrintStats( int index = -1 ) const;
@@ -45,6 +45,8 @@ public:// no c'tor needed
 	// we will not remove cards from the dictionary
 
 	const Card& GetCard( unsigned int index ) const;
+
+	// nice utility function
 	int			FindCard( int cost, int damage, int heal, int numToDraw, int manaEarned );
 
 private:

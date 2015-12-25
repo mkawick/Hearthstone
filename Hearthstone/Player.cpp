@@ -43,17 +43,10 @@ void	Player::PickNewHand()
 
 void	Player::DrawCard( bool displayCardStats )
 {
-	/*if (m_deck.GetNumCards() == 0) // design doc #9
-	{
-		cout << "Player takes damage for having no cards" << endl;
-		m_health--;
-		return;
-	}*/
-
 	auto c = m_deck.GetCard( 0 );
 	if ( displayCardStats )
 	{
-		GetCardFromDictionary( c ).PrintSimpleStats( );
+		GetCardFromDictionary( c ).PrintSimpleStats();
 	}
 	m_hand.AddCard( c );
 	m_deck.RemoveCard(0); // design doc #5
@@ -99,7 +92,7 @@ bool	Player::ApplyHealing( int healing )
 	return false;
 }
 
-void	Player::TurnSetup( int newMana )
+void	Player::SetupForNextTurn( int newMana )
 {
 	m_mana += newMana;
 	if (m_mana > maximumPlayerMana)
@@ -112,9 +105,9 @@ void	Player::TurnSetup( int newMana )
 	}
 }
 
-bool	Player::HasEnoughManaToPlay( ) const
+bool	Player::HasEnoughManaToPlay() const
 {
-	int  numCards = m_hand.GetNumCards( );
+	int  numCards = m_hand.GetNumCards();
 	for ( int i = 0; i < numCards; i++ )
 	{
 		auto card = GetCardFromDictionary( m_hand.GetCard( i ) );
@@ -138,7 +131,8 @@ int		Player::PrintState() const
 	return numOptions;
 }
 
-void	Player::PrintAsOpponentState() const
+// you should not have as much info on your opponent as yourself
+void	Player::PrintAsOpponentState() const 
 {
 	cout << "--------- stats --------" << endl;
 	cout << "       name: " << m_name << endl;
@@ -173,32 +167,50 @@ void	Player::ApplyCard( const Card& card, Player& opponent )
 		assert( card.m_manaCost <= m_mana );// should be checked before playing card
 		m_mana -= card.m_manaCost;
 	}
-	if ( card.GetDamage( ) ) // as per #7 in design
+	if ( card.GetDamage() ) // as per #7 in design
 	{
 		cout << "Applying damage to " << opponent.GetName() << endl;
-		opponent.ApplyDamage( card.GetDamage( ) );
+		opponent.ApplyDamage( card.GetDamage() );
 	}
-	if ( card.GetHealing( ) ) // as per #7 in design
+	if ( card.GetHealing() ) // as per #7 in design
 	{
-		cout << "Applying healing to " << GetName( ) << endl;
-		ApplyHealing( card.GetHealing( ) );
+		cout << "Applying healing to " << GetName() << endl;
+		ApplyHealing( card.GetHealing() );
 	}
-	if ( card.GetNumToDraw( ) )
+	if ( card.GetNumToDraw() )
 	{
-		int num = card.GetNumToDraw( );
-		cout << "Drawing cards .. num: " << card.GetNumToDraw( ) << endl;
-		for ( int i = 0; i < num; i++ )
-		{
-			DrawCard( true );
-		}
+		DrawMultipleCards( card.GetNumToDraw() );
 	}
-	if ( card.GetManaEarned( ) ) // as per #7 in design
+	if ( card.GetManaEarned() ) // as per #7 in design
 	{
-		m_mana += card.GetManaEarned( );
-		cout << "Mana earned: " << card.GetManaEarned( ) << endl;
+		m_mana += card.GetManaEarned();
+		cout << "Mana earned: " << card.GetManaEarned() << endl;
 	}
 	if ( card.GetMessage().length() )
 	{
-		cout << card.GetMessage( ) << endl;
+		cout << card.GetMessage() << endl;
 	}
+}
+
+void	Player::DrawMultipleCards( int num )
+{
+	int damageToTake = num - m_deck.GetNumCards();// design doc #9
+	cout << "Drawing cards .. num: " << num << endl;
+	for ( int i = 0; i < num; i++ )
+	{
+		DrawCard( true );
+	}
+
+	// while this is a duplicate as in the game, this is the only duplicate code in the app
+	// see Hearthstone.cpp.. PlayTurn
+	// I am not sure if damage should be applied so I comment it out...
+	// "If all 30 cards from the player’s deck have been drawn, the player is deducted 1 hit point at the start of their turn."
+	// this seems to indicate damage but I am not too sure.
+	/*if ( damageToTake > 0 )// design doc #9
+	{
+		cout << "*************************************" << endl;
+		cout << "ERROR: player is out of cards" << endl;
+		cout << "*************************************" << endl;
+		ApplyDamage( damageToTake ); // design doc #9
+	}*/
 }

@@ -14,9 +14,11 @@ Card::Card( int manaCost, int damage, int heal, int cardsDrawn, int manaEarned, 
 {
 }
 
+/*
 Card::~Card()
 {
 }
+*/
 
 void	Card::PrintStats( int index ) const
 {
@@ -73,8 +75,8 @@ void	CardDictionary::AddCard( const Card& card )
 
 const Card& CardDictionary::GetCard( unsigned int index ) const
 {
-	assert( index < cardList.size( ) );
-	if ( index >= cardList.size( ) )
+	assert( index < cardList.size() );
+	if ( index >= cardList.size() )
 	{
 		cout << "ERROR: Bad card index. " << endl;
 		return cardList[0];
@@ -84,22 +86,21 @@ const Card& CardDictionary::GetCard( unsigned int index ) const
 
 int CardDictionary::FindCard( int cost, int damage, int heal, int numToDraw, int manaEarned )
 {
-	int num = cardList.size( );
-	//auto cardList = cardList.GetCardList( );
+	int num = cardList.size();
+	//auto cardList = cardList.GetCardList();
 
 	for ( int i = 0; i < num; i++ )// I played with lots of different iterator types here and this is best
 	{
 		const Card& card = cardList[i];
 		if ( card.GetCost() == cost &&
-			card.GetDamage( ) == damage &&
-			card.GetHealing( ) == heal &&
-			card.GetNumToDraw( ) == numToDraw &&
-			card.GetManaEarned( ) == manaEarned )
+			card.GetDamage() == damage &&
+			card.GetHealing() == heal &&
+			card.GetNumToDraw() == numToDraw &&
+			card.GetManaEarned() == manaEarned )
 		{
 			return  i;
 		}
 	}
-
 
 	return -1;// just for the compiler
 }

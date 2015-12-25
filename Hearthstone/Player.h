@@ -23,7 +23,7 @@ public:
 	bool	ApplyDamage( int damage );
 	bool	ApplyHealing( int healing );
 
-	void	TurnSetup( int newMana = 1 );
+	void	SetupForNextTurn( int newMana = 1 );
 	bool	HasEnoughManaToPlay() const;
 
 	// the following are for logging and debug only
@@ -45,5 +45,5 @@ private:
 	bool		m_isDead;
 	//Deck		m_discardDeck;// this should be part of any card game, but it is not part of this current design
 
-	
+	void	DrawMultipleCards( int num );
 };

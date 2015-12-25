@@ -17,38 +17,41 @@ CardDictionary		globalCardDictionary;
 
 void	Print( const Deck& deck )
 {
-	int num = deck.GetNumCards( );
+	int num = deck.GetNumCards();
 	for ( int i = 0; i<num; i++ )
 	{
-		GetCardFromDictionary( deck.GetCard( i ) ).PrintStats( );
+		GetCardFromDictionary( deck.GetCard( i ) ).PrintStats();
 	}
 }
 
 void	RandomizeWithIndices( std::vector <int>& indices, int num )
 {
-	indices.clear( );
+	indices.clear();
 	for ( int i = 0; i<num; ++i ) indices.push_back( i );
-	std::random_shuffle( indices.begin( ), indices.end( ) );
+	std::random_shuffle( indices.begin(), indices.end() );
 
 	// only needed during debug
-	/*	int count = 0;
+#ifdef TESTING
+	int count = 0;
 	auto it = indices.begin();
 	while (it != indices.end())
 	{
 	cout << count++ << " : " << (*it++) << endl;
-	}*/
+	}
+#endif
+
 	cout << endl;
 }
 
 void	InitialzeDeckRandomly( Player& deckReceiver, const Deck& availableDeck )
 {
-	int num = availableDeck.GetNumCards( );
+	int num = availableDeck.GetNumCards();
 	std::vector <int> indices;
 	RandomizeWithIndices( indices, num );
 
-	Deck& deck = deckReceiver.GetDeck( );// acting directly on the data
+	Deck& deck = deckReceiver.GetDeck();// acting directly on the data
 
-	for ( auto it = indices.begin( ); it != indices.end( ); ++it )
+	for ( auto it = indices.begin(); it != indices.end(); ++it )
 	{
 		deck.AddCard( availableDeck.GetCard( *it ) );
 	}
@@ -56,10 +59,10 @@ void	InitialzeDeckRandomly( Player& deckReceiver, const Deck& availableDeck )
 
 void	InitialzeDeckInOrder( Player& deckReceiver, const Deck& availableDeck )
 {
-	int num = availableDeck.GetNumCards( );
+	int num = availableDeck.GetNumCards();
 
-	Deck& deck = deckReceiver.GetDeck( );// acting directly on the data
-	deck.Clear( );
+	Deck& deck = deckReceiver.GetDeck();// acting directly on the data
+	deck.Clear();
 
 	for ( int i = 0; i < num; i++ )
 	{
@@ -67,12 +70,13 @@ void	InitialzeDeckInOrder( Player& deckReceiver, const Deck& availableDeck )
 	}
 }
 
-void	WaitForUser( )
+void	WaitForUser()
 {
 	cout << "press any key to continue" << endl;
-	getch( );
+	getch();
 }
 
+// this should be read in from a file or some other data source. But given the specifics of the design doc...
 void	PrepGlobalDeck()  // design doc #2
 {
 	Card card_a( 1, 1, 0, 0, 0, "deal 1 damage and cost 1 mana" );
@@ -104,7 +108,6 @@ void	PrepGlobalDeck()  // design doc #2
 	globalCardDictionary.AddCard( card_i );
 }
 
-
 int		GetDictionarySize()
 {
 	return globalCardDictionary.GetNumCards();
@@ -112,8 +115,8 @@ int		GetDictionarySize()
 
 const Card& GetCardFromDictionary( int index )
 {
-	assert( index < globalCardDictionary.GetNumCards( ) );
-	if ( index >= globalCardDictionary.GetNumCards( ) )
+	assert( index < globalCardDictionary.GetNumCards() );
+	if ( index >= globalCardDictionary.GetNumCards() )
 	{
 		cout << "ERROR: Bad card index. " << endl;
 		return globalCardDictionary.GetCard(0);
@@ -123,5 +126,5 @@ const Card& GetCardFromDictionary( int index )
 
 int		FindCardInDictionary( int cost, int damage, int heal, int numToDraw, int manaEarned )
 {
-	return globalCardDictionary.FindCard( cost, damage, heal, numToDraw, manaEarned );
+	return	globalCardDictionary.FindCard( cost, damage, heal, numToDraw, manaEarned );
 }
