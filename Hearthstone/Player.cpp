@@ -17,10 +17,11 @@ Player::~Player()
 */
 void	Player::SetupForNewGame()
 { 
-	m_mana = 1;
+	m_hand.Clear( );
+	m_deck.Clear( );
+
 	m_health = maximumPlayerHealth;
-	m_hand.Clear();
-	m_deck.Clear();
+	m_mana = playerBeginningMana;
 	m_isDead = false;
 }
 
@@ -34,9 +35,9 @@ void	Player::PickNewHand()
 	for ( int i = 0; i < cardCount; ++i )
 	{
 		int numCards = m_deck.GetNumCards();
-		int r = rand() % numCards;
-		m_hand.AddCard( m_deck.GetCard( r ) );
-		m_deck.RemoveCard( r );
+		int choice = ChooseRandomNumber( 0, numCards );
+		m_hand.AddCard( m_deck.GetCard( choice ) );
+		m_deck.RemoveCard( choice );
 	}
 }
 

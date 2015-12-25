@@ -9,9 +9,10 @@ using namespace std;
 #include "Global.h"
 #pragma warning( disable:4996)
 
-const int maximumPlayerMana = 10; // design doc #1
-const int maximumPlayerHealth = 30;  // design doc #4
-const int numCardsInBeginningHand = 4; // design doc #4
+const int playerBeginningMana = 1;		// design doc #1
+const int maximumPlayerMana = 10;		// design doc #1
+const int maximumPlayerHealth = 30;		// design doc #4
+const int numCardsInBeginningHand = 4;	// design doc #4
 
 CardDictionary		globalCardDictionary;
 
@@ -77,6 +78,16 @@ void	InitialzeDeckInOrder( Player& deckReceiver, const Deck& availableDeck )
 	}
 }
 
+int		ChooseRandomNumber( int rangeMin, int rangeMax )
+{
+	// I realize that this is imperfect for random number generation
+	// but it makes testing easier since the numbers are always the same
+
+	return rand( ) % (rangeMax - rangeMin) + rangeMin;
+	
+	// this is much better using c++ 11 random
+}
+
 void	WaitForUser()
 {
 	cout << "press any key to continue" << endl;
@@ -106,10 +117,10 @@ void	PrepGlobalDeck()  // design doc #2
 	Card card_e( 5, 5, 0, 0, 0, "deal 5 damage and cost 5 mana" );
 	globalCardDictionary.AddCard( card_e );
 
-	Card card_f( 1, 0, 1, 0, 0, "heal 1 damage and cost 1 mana" );
+	Card card_f( 1, 0, 1, 0, 0, "heal 1 hit points and cost 1 mana" );// I renamed this to make is more obvious in the logging.. 'heal' and 'deal' look the same in a wall of text
 	globalCardDictionary.AddCard( card_f );
 
-	Card card_g( 2, 0, 2, 0, 0, "heal 2 damage and cost 2 mana" );
+	Card card_g( 2, 0, 2, 0, 0, "heal 2 hit points and cost 2 mana" );
 	globalCardDictionary.AddCard( card_g );
 
 	Card card_h( 1, 1, 0, 1, 0, "deal 1 damage, cost 1 mana, draw 1 card" );

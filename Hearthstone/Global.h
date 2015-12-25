@@ -2,10 +2,11 @@ class Player;
 class Deck;
 class CardDictionary;
 
+extern const int playerBeginningMana;		// design doc #1
+extern const int maximumPlayerMana;			// design doc #1
+extern const int maximumPlayerHealth;		// design doc #4
+extern const int numCardsInBeginningHand;	// design doc #4
 
-extern const int maximumPlayerMana; // design doc #1
-extern const int maximumPlayerHealth;  // design doc #4
-extern const int numCardsInBeginningHand; // design doc #4
 
 void	ApplySimpleCardTest( Player& attacker, Player& defender, const Deck& deck );
 void	ApplySimpleCardTest2( Player& attacker, Player& defender, const Deck& deck );
@@ -14,6 +15,7 @@ void	Print( const Deck& deck );
 void	RandomizeWithIndices( std::vector <int>& indices, int num );
 void	InitialzeDeckRandomly( Player& deckReceiver, const Deck& availableDeck );
 void	InitialzeDeckInOrder( Player& deckReceiver, const Deck& availableDeck );
+int		ChooseRandomNumber( int rangeMin, int rangeMax );
 
 
 void	WaitForUser();
