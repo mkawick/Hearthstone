@@ -13,14 +13,12 @@ public:
 
 	void	AddCard( int indexInDictionary ); 
 	void	Clear() { m_cards.clear(); }
-	void	PrintDeck();
 
 	int		GetNumCards() const { return m_cards.size(); }
 	int		GetCard( unsigned int index ) const;// each card indexes the global dictionary
-//	Deck	Randomi
 
-	// utils
-	void	RemoveCard( int index );
+	// utils .. not part of the normal functionality
+	void	RemoveCard( unsigned int index );
 	void	PrepBasicDeck();
 
 	// testing

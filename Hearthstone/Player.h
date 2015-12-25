@@ -12,6 +12,9 @@ public:
 	bool	IsDead() const { if (m_health == 0) return true; return false; }
 	int		GetHealth() const { return m_health; }
 	int		GetMana() const { return m_mana; }
+	const std::string& GetName() const { return m_name; }
+	Deck&	GetDeck() { return m_deck; } // work directly on the data allows different algorithms to modify the data easily
+	Deck&	GetHand() { return m_hand; }
 
 	void	SetupForNewGame();
 	void	PickNewHand();
@@ -19,10 +22,6 @@ public:
 	bool	PlayCard( unsigned int index, Player& opponent );
 	bool	ApplyDamage( int damage );
 	bool	ApplyHealing( int healing );
-	
-	const std::string& GetName() const { return m_name; }
-	Deck&	GetDeck() { return m_deck; } // work directly on the data allows different algorithms to modify the data easily
-	Deck&	GetHand( ) { return m_hand; }
 
 	void	TurnSetup( int newMana = 1 );
 	bool	HasEnoughManaToPlay() const;

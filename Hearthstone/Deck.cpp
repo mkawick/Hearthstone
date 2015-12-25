@@ -17,11 +17,6 @@ void	Deck::AddCard( int indexInDictionary )
 	m_cards.push_back( indexInDictionary );
 }
 
-void	Deck::PrintDeck()
-{
-}
-
-
 int		Deck::GetCard( unsigned int index ) const
 {
 	assert(index < m_cards.size());
@@ -33,7 +28,7 @@ int		Deck::GetCard( unsigned int index ) const
 	return m_cards[index];
 }
 
-void	Deck::RemoveCard( int index )
+void	Deck::RemoveCard( unsigned int index )
 {
 	if (index < m_cards.size())
 	{

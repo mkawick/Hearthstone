@@ -21,12 +21,10 @@ public:
 	int 		GetManaEarned() const { return m_manaEarned; }
 	const std::string& 	GetMessage() const { return m_message; }
 
-	void	PrintStats( int index = -1 ) const;
-	void	PrintSimpleStats( int index = -1 ) const;
-	//virtual void	Play() {}
+	void		PrintStats( int index = -1 ) const;
+	void		PrintSimpleStats( int index = -1 ) const;
 
-	void	PlayCard( Player& personPlayingCard, Player& opponent ) const;
-	void	AddMessage( const std::string& message ) { m_message = message; }  // design doc #2
+	void		AddMessage( const std::string& message ) { m_message = message; }  // design doc #2
 
 public:
 	int 		m_manaCost;
@@ -38,22 +36,16 @@ public:
 	std::string m_message;
 };
 
-/*
-class Card_a
-{
-};*/
-
 class CardDictionary
 {
 public:// no c'tor needed 
 	
-	int		GetNumCards() const { return cardList.size(); }
-	void	AddCard( const Card& card );
-	const Card& GetCard( unsigned int index ) const;
-
+	int			GetNumCards() const { return cardList.size(); }
+	void		AddCard( const Card& card );
 	// we will not remove cards from the dictionary
 
-	int		FindCard( int cost, int damage, int heal, int numToDraw, int manaEarned );
+	const Card& GetCard( unsigned int index ) const;
+	int			FindCard( int cost, int damage, int heal, int numToDraw, int manaEarned );
 
 private:
 	std::vector <Card> cardList;

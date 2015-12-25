@@ -7,6 +7,7 @@
 #include <iostream>
 using namespace std;
 #include "Global.h"
+#pragma warning( disable:4996)
 
 const int maximumPlayerMana = 10; // design doc #1
 const int maximumPlayerHealth = 30;  // design doc #4

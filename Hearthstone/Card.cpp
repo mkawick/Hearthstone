@@ -37,7 +37,6 @@ void	Card::PrintStats( int index ) const
 
 void	Card::PrintSimpleStats( int index ) const
 {
-	
 	if (index != -1)
 	{
 		cout << index << ") ";
