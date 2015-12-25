@@ -7,7 +7,7 @@ class Player
 {
 public:
 	Player( const char* name );
-	~Player();
+	//~Player(); default d'tor is fine
 
 	bool	IsDead() const { if (m_health == 0) return true; return false; }
 	int		GetHealth() const { return m_health; }

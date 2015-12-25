@@ -19,8 +19,8 @@ void	Deck::AddCard( int indexInDictionary )
 
 int		Deck::GetCard( unsigned int index ) const
 {
-	assert(index < m_cards.size());
-	if (index >= m_cards.size())
+	assert( index < m_cards.size() );
+	if ( index >= m_cards.size() )
 	{
 		cout << "ERROR: Bad card index. " << endl;
 		return m_cards[0];
@@ -37,7 +37,7 @@ void	Deck::RemoveCard( unsigned int index )
 		return;
 	}
 
-	m_cards.erase(m_cards.begin() + index);
+	m_cards.erase( m_cards.begin() + index );
 }
 
 void	Deck::PrepBasicDeck()  // design doc #2

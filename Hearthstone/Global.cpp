@@ -38,7 +38,8 @@ void	RandomizeWithIndices( std::vector <int>& indices, int num )
 	auto it = indices.begin();
 	while (it != indices.end())
 	{
-	cout << count++ << " : " << (*it++) << endl;
+		cout << count++ << " : " << (*it) << endl;
+		++it;
 	}
 #endif
 
@@ -123,7 +124,7 @@ const Card& GetCardFromDictionary( int index )
 		cout << "ERROR: Bad card index. " << endl;
 		return globalCardDictionary.GetCard(0);
 	}
-	return globalCardDictionary.GetCard(index);
+	return globalCardDictionary.GetCard( index );
 }
 
 int		FindCardInDictionary( int cost, int damage, int heal, int numToDraw, int manaEarned )

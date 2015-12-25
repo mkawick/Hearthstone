@@ -7,15 +7,14 @@ using namespace std;
 Player::Player( const char* name ) : 
 	m_name( name ),
 	m_health( maximumPlayerHealth ),
-	m_isDead( false )
-	
+	m_isDead( false )	
 {
 }
-
+/*
 Player::~Player()
 {
 }
-
+*/
 void	Player::SetupForNewGame()
 { 
 	m_mana = 1;
@@ -28,11 +27,11 @@ void	Player::SetupForNewGame()
 void	Player::PickNewHand()
 {
 	int cardCount = numCardsInBeginningHand;
-	if (cardCount > m_deck.GetNumCards())
+	if ( cardCount > m_deck.GetNumCards() )
 	{
 		cardCount = m_deck.GetNumCards();
 	}
-	for (int i = 0; i < cardCount; ++i)
+	for ( int i = 0; i < cardCount; ++i )
 	{
 		int numCards = m_deck.GetNumCards();
 		int r = rand() % numCards;
@@ -49,7 +48,7 @@ void	Player::DrawCard( bool displayCardStats )
 		GetCardFromDictionary( card ).PrintSimpleStats( );
 	}
 	m_hand.AddCard( card );
-	m_deck.RemoveCard(0); // design doc #5
+	m_deck.RemoveCard( 0 ); // design doc #5
 }
 
 bool	Player::PlayCard( unsigned int index, Player& opponent )
@@ -95,11 +94,11 @@ bool	Player::ApplyHealing( int healing )
 void	Player::SetupForNextTurn( int newMana )
 {
 	m_mana += newMana;
-	if (m_mana > maximumPlayerMana)
+	if ( m_mana > maximumPlayerMana )
 	{
 		m_mana = maximumPlayerMana;
 	}
-	if (m_mana < 0)
+	if ( m_mana < 0 )
 	{
 		m_mana = 0;
 	}
