@@ -178,10 +178,9 @@ int main( int argc, const char* argv[] )
 {
 	Deck deck;
 	Player player1( "player1" ), player2( "player2" );
-	PrepGlobalDeck();// basically loading all cards into memory
 
-	deck.PrepBasicDeck();
-	
+	PrepGlobalDeck();// basically loading all cards into memory
+	deck.PrepBasicDeck();	
 
 #ifdef TESTING
 	WaitForUser();
@@ -196,6 +195,11 @@ int main( int argc, const char* argv[] )
 #endif
 	
 	PlayGame( player1, player2, deck ); // we could put a menuing system here to allow a restart, historical tracking, etc
+
+	cout << endl;
+	cout << "*******************************" << endl;
+	cout << "        Game is ended" << endl;
+	cout << "*******************************" << endl;
 
 	WaitForUser();
 

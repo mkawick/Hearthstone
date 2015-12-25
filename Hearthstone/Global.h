@@ -18,6 +18,7 @@ void	InitialzeDeckInOrder( Player& deckReceiver, const Deck& availableDeck );
 
 void	WaitForUser();
 
+bool	IsGlobalDeckLoaded();
 void	PrepGlobalDeck();
 int		GetDictionarySize();
 const Card& GetCardFromDictionary( int index );

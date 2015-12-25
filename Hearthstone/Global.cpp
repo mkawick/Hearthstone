@@ -48,6 +48,8 @@ void	RandomizeWithIndices( std::vector <int>& indices, int num )
 
 void	InitialzeDeckRandomly( Player& deckReceiver, const Deck& availableDeck )
 {
+	assert( IsGlobalDeckLoaded( ) == true );
+
 	int num = availableDeck.GetNumCards();
 	std::vector <int> indices;
 	RandomizeWithIndices( indices, num );
@@ -62,6 +64,8 @@ void	InitialzeDeckRandomly( Player& deckReceiver, const Deck& availableDeck )
 
 void	InitialzeDeckInOrder( Player& deckReceiver, const Deck& availableDeck )
 {
+	assert( IsGlobalDeckLoaded( ) == true );
+
 	int num = availableDeck.GetNumCards();
 
 	Deck& deck = deckReceiver.GetDeck();// acting directly on the data
@@ -77,6 +81,11 @@ void	WaitForUser()
 {
 	cout << "press any key to continue" << endl;
 	getch();
+}
+
+bool	IsGlobalDeckLoaded()
+{
+	return globalCardDictionary.GetNumCards() > 0;
 }
 
 // this should be read in from a file or some other data source. But given the specifics of the design doc...

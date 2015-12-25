@@ -42,6 +42,8 @@ void	Deck::RemoveCard( unsigned int index )
 
 void	Deck::PrepBasicDeck()  // design doc #2
 {
+	assert( IsGlobalDeckLoaded() == true );
+
 	auto card_a = FindCardInDictionary( 1, 1, 0, 0, 0 );
 	for (int i = 0; i<10; ++i)
 	{
