@@ -18,7 +18,7 @@ CardDictionary		globalCardDictionary;
 void	Print( const Deck& deck )
 {
 	int num = deck.GetNumCards();
-	for ( int i = 0; i<num; i++ )
+	for ( int i = 0; i<num; ++i )
 	{
 		GetCardFromDictionary( deck.GetCard( i ) ).PrintStats();
 	}
@@ -27,7 +27,9 @@ void	Print( const Deck& deck )
 void	RandomizeWithIndices( std::vector <int>& indices, int num )
 {
 	indices.clear();
-	for ( int i = 0; i<num; ++i ) indices.push_back( i );
+	for ( int i = 0; i<num; ++i ) 
+		indices.push_back( i );
+
 	std::random_shuffle( indices.begin(), indices.end() );
 
 	// only needed during debug
@@ -64,7 +66,7 @@ void	InitialzeDeckInOrder( Player& deckReceiver, const Deck& availableDeck )
 	Deck& deck = deckReceiver.GetDeck();// acting directly on the data
 	deck.Clear();
 
-	for ( int i = 0; i < num; i++ )
+	for ( int i = 0; i < num; ++i )
 	{
 		deck.AddCard( availableDeck.GetCard( i ) );
 	}

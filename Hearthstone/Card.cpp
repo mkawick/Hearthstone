@@ -89,7 +89,7 @@ int CardDictionary::FindCard( int cost, int damage, int heal, int numToDraw, int
 	int num = cardList.size();
 	//auto cardList = cardList.GetCardList();
 
-	for ( int i = 0; i < num; i++ )// I played with lots of different iterator types here and this is best
+	for ( int i = 0; i < num; ++i )// I played with lots of different iterator types here and this is best
 	{
 		const Card& card = cardList[i];
 		if ( card.GetCost() == cost &&

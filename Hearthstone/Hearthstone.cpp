@@ -43,13 +43,13 @@ void	PrintEndOfTurnMessage()
 
 bool	DoesPlayerHaveEnoughManaToContinue( const Player& player )
 {
-	if ( player.HasEnoughManaToPlay( ) == 0 )
+	if ( player.HasEnoughManaToPlay() == 0 )
 	{
 		cout << endl;
 		cout << "*************************************" << endl;
 		cout << "ERROR: player does not have enough mana to play" << endl;
 		cout << "*************************************" << endl;
-		PrintEndOfTurnMessage( );
+		PrintEndOfTurnMessage();
 		return false;
 	}
 	return true;
@@ -57,7 +57,7 @@ bool	DoesPlayerHaveEnoughManaToContinue( const Player& player )
 
 void ApplyDamageIfPlayerIsOutOfCards( Player& player )
 {
-	int totalNumCards = player.GetDeck( ).GetNumCards( );
+	int totalNumCards = player.GetDeck().GetNumCards();
 	if ( totalNumCards == 0 )
 	{
 		cout << "*************************************" << endl;
@@ -87,7 +87,7 @@ bool	PlayCard( Player& attacker, Player& defender, int choice )
 	auto card = GetCardFromDictionary( attackerDeck.GetCard( choice ) );
 	cout << "---> card choice was:" << card.GetName() << endl;
 
-	if ( card.GetCost( ) <= attacker.GetMana() )
+	if ( card.GetCost() <= attacker.GetMana() )
 	{
 		attacker.PlayCard( choice, defender );
 		return true;

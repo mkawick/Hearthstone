@@ -43,49 +43,49 @@ void	Deck::RemoveCard( unsigned int index )
 void	Deck::PrepBasicDeck()  // design doc #2
 {
 	auto card_a = FindCardInDictionary( 1, 1, 0, 0, 0 );
-	for (int i = 0; i<10; i++)
+	for (int i = 0; i<10; ++i)
 	{
 		AddCard(card_a);
 	}
 
 	auto  card_b = FindCardInDictionary( 2, 2, 0, 0, 0 );
-	for (int i = 0; i<4; i++)
+	for (int i = 0; i<4; ++i)
 	{
 		AddCard(card_b);
 	}
 
 	auto card_c = FindCardInDictionary( 3, 3, 0, 0, 0 );
-	for (int i = 0; i<2; i++)
+	for (int i = 0; i<2; ++i)
 	{
 		AddCard(card_c);
 	}
 
 	auto card_d = FindCardInDictionary( 4, 4, 0, 0, 0 );
-	for (int i = 0; i<2; i++)
+	for (int i = 0; i<2; ++i)
 	{
 		AddCard(card_d);
 	}
 
 	auto card_e = FindCardInDictionary( 5, 5, 0, 0, 0 );
-	for (int i = 0; i<2; i++)
+	for (int i = 0; i<2; ++i)
 	{
 		AddCard(card_e);
 	}
 
 	auto card_f = FindCardInDictionary( 1, 0, 1, 0, 0 );
-	for (int i = 0; i<5; i++)
+	for (int i = 0; i<5; ++i)
 	{
 		AddCard(card_f);
 	}
 
 	auto card_g = FindCardInDictionary( 2, 0, 2, 0, 0 );
-	for (int i = 0; i<2; i++)
+	for (int i = 0; i<2; ++i)
 	{
 		AddCard(card_g);
 	}
 
 	auto card_h = FindCardInDictionary( 1, 1, 0, 1, 0 );
-	for (int i = 0; i<2; i++)
+	for (int i = 0; i<2; ++i)
 	{
 		AddCard(card_h);
 	}

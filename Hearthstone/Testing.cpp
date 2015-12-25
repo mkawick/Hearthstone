@@ -37,7 +37,7 @@ void	ApplySimpleCardTest( Player& attacker, Player& defender, const Deck& deck )
 	cout << "picking card to play" << endl;
 	Deck& attackerDeck = attacker.GetHand();
 
-	for ( int i = 0; i < attackerDeck.GetNumCards(); i++ )// the number of cards may change
+	for ( int i = 0; i < attackerDeck.GetNumCards(); ++i )// the number of cards may change
 	{
 		auto card = GetCardFromDictionary( attackerDeck.GetCard( i ) );
 		if ( card.GetCost() <= attacker.GetMana() )
@@ -56,7 +56,7 @@ void	ApplySimpleCardTest( Player& attacker, Player& defender, const Deck& deck )
 	cout << "picking card to play" << endl;
 	Deck& defenderDeck = defender.GetHand();
 
-	for ( int i = 0; i < defenderDeck.GetNumCards(); i++ )// the number of cards may change
+	for ( int i = 0; i < defenderDeck.GetNumCards(); ++i )// the number of cards may change
 	{
 		auto card = GetCardFromDictionary( defenderDeck.GetCard( i ) );
 		if ( card.GetCost() <= defender.GetMana() )
@@ -81,7 +81,7 @@ void	ApplySimpleCardTest2( Player& player1, Player& player2, const Deck& deck )
 	player1.GiveMana( 128 );
 	player2.GiveMana( 1 );
 
-	for ( int i = 0; i < 7; i++ ) // kill player 2
+	for ( int i = 0; i < 7; ++i ) // kill player 2
 		player1.ApplyCard( GetCardFromDictionary( FindCardInDictionary( 5, 4, 0, 0, 1 ) ), player2 );// damage
 
 	player1.ApplyCard( GetCardFromDictionary( FindCardInDictionary( 2, 0, 2, 0, 0 ) ), player2 );// healing

@@ -32,7 +32,7 @@ void	Player::PickNewHand()
 	{
 		cardCount = m_deck.GetNumCards();
 	}
-	for (int i = 0; i < cardCount; i++)
+	for (int i = 0; i < cardCount; ++i)
 	{
 		int numCards = m_deck.GetNumCards();
 		int r = rand() % numCards;
@@ -43,12 +43,12 @@ void	Player::PickNewHand()
 
 void	Player::DrawCard( bool displayCardStats )
 {
-	auto c = m_deck.GetCard( 0 );
+	auto card = m_deck.GetCard( 0 );
 	if ( displayCardStats )
 	{
-		GetCardFromDictionary( c ).PrintSimpleStats();
+		GetCardFromDictionary( card ).PrintSimpleStats( );
 	}
-	m_hand.AddCard( c );
+	m_hand.AddCard( card );
 	m_deck.RemoveCard(0); // design doc #5
 }
 
@@ -108,7 +108,7 @@ void	Player::SetupForNextTurn( int newMana )
 bool	Player::HasEnoughManaToPlay() const
 {
 	int  numCards = m_hand.GetNumCards();
-	for ( int i = 0; i < numCards; i++ )
+	for ( int i = 0; i < numCards; ++i )
 	{
 		auto card = GetCardFromDictionary( m_hand.GetCard( i ) );
 		if ( card.GetCost() <= m_mana )
@@ -146,7 +146,7 @@ int		Player::PrintHand( bool includeIndices ) const
 	cout << "          hand   " << endl;
 	int  numCards = m_hand.GetNumCards();
 	cout << "------------------------------" << endl;
-	for (int i = 0; i < numCards; i++)
+	for (int i = 0; i < numCards; ++i)
 	{
 		auto card = GetCardFromDictionary( m_hand.GetCard( i ) );
 		int index = i;
@@ -167,12 +167,12 @@ void	Player::ApplyCard( const Card& card, Player& opponent )
 		assert( card.m_manaCost <= m_mana );// should be checked before playing card
 		m_mana -= card.m_manaCost;
 	}
-	if ( card.GetDamage() ) // as per #7 in design
+	if ( card.GetDamage() ) // design doc #7
 	{
 		cout << "Applying damage to " << opponent.GetName() << endl;
 		opponent.ApplyDamage( card.GetDamage() );
 	}
-	if ( card.GetHealing() ) // as per #7 in design
+	if ( card.GetHealing() ) // design doc #7
 	{
 		cout << "Applying healing to " << GetName() << endl;
 		ApplyHealing( card.GetHealing() );
@@ -181,7 +181,7 @@ void	Player::ApplyCard( const Card& card, Player& opponent )
 	{
 		DrawMultipleCards( card.GetNumToDraw() );
 	}
-	if ( card.GetManaEarned() ) // as per #7 in design
+	if ( card.GetManaEarned() ) 
 	{
 		m_mana += card.GetManaEarned();
 		cout << "Mana earned: " << card.GetManaEarned() << endl;
@@ -196,7 +196,7 @@ void	Player::DrawMultipleCards( int num )
 {
 	int damageToTake = num - m_deck.GetNumCards();// design doc #9
 	cout << "Drawing cards .. num: " << num << endl;
-	for ( int i = 0; i < num; i++ )
+	for ( int i = 0; i < num; ++i )
 	{
 		DrawCard( true );
 	}
