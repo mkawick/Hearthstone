@@ -158,6 +158,8 @@ void	PlayGame( Player& player1, Player& player2, const Deck& deck )
 	player1.PickNewHand();
 	player2.PickNewHand();
 
+	//player2.DeductHealth( 27 );
+
 	cout << "Beginning new game" << endl;
 	cout << "----------------------" << endl;
 

@@ -34,6 +34,7 @@ public:
 
 #if defined (_DEBUG)
 	void	GiveMana( int amount ) { m_mana += amount; }
+	void	DeductHealth( int amount ) { m_health -= amount; }
 #endif
 
 private:
