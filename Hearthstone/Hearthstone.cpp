@@ -194,10 +194,13 @@ void	PlayGame( Player& player1, Player& player2, const Deck& sourceDeckOfCards )
 /*
 The idea is that there is a global deck which is the dictionary or definition of all 
 available cards. Then we select the proper number of each cards and store those. 
-Then, each player gets a copy and shuffles it.
+Then, each player gets a copy and shuffles it. This may be a bit of over-engineering
+but I prefer this as it then can be used to initialize AI, many more players, and is 
+more lightweight than calling PrepBasicDeck everytime which is fairly costly.
+
 This allows us to initialize the data once and reuse it across multiple game instances 
 saving memory and initialization. Otherwise, guaranteeing the right number of 
-cards is not centralized and leads to more complex code.
+cards is not centralized and leads to more computationally costly code.
 */
 
 int main( int argc, const char* argv[] )

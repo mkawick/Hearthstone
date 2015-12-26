@@ -11,8 +11,9 @@ model that I could in the  limited time that I had.
 You may wonder why I went this route instead of using inheritance. I worked on Agricola, Ascension, and 
 quite a few other card games and having a purely data driven model is more flexible and forces
 The AI to look at the merits of the cards rather than on particular cards. Plus, you can always 
-inherit for special cases.
-Since you mentioned thinking about the design for the future in the design doc...
+inherit for special cases when you need to but your card selection wasn't particularly
+unique and did not require specialized behaviors. IOW, inheritance would have been
+over-engineering. Since you mentioned thinking about the design for the future in the design doc...
 
 It also means that the AI can be written in a way that doesn't look for specific cards 
 but looks for potential advantages based on card results as you apply a GA to it. 
@@ -27,10 +28,10 @@ or a menuing system since this was not called for. All tests were moved into
 Testing .cpp and many global functions and objects were moved into Global.cpp.
 
 The overall design is a hybrid, mostly taking advantage of C++ and encapsulation
-but avoid inheritance because it adds little in a purely data driven model. 
+but avoid inheritance because it adds little in this purely data driven model. 
 (it pains me to say that being such such an OOD/OOP guy). 
 
-Currently, the text is not colored which would help tremendouosly and the output and code 
+Currently, the output text is not colored which would help tremendouosly and the output and code 
 are mixed together. Both of these would be great, but there simply is not enough time.
 
 If I had had more time, I would have added a game state object to manage control input and 
@@ -47,6 +48,6 @@ a little love, but you should be able to gather a general sense of my overall C+
 Workflow:
 Build, run, test, write more tests, build the main parts over time. Putting together the final
 Game was easy once I had all of the infrastructure in place.
-I commited to git fairly often.
+I commited to my local git fairly often.
 I also believe in taking breaks often so I would code for 30 minutes and then go away for several hours...
 partially because this is Christmas time.
