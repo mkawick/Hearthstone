@@ -33,7 +33,7 @@ public:
 
 	void		AddMessage( const std::string& message ) { m_message = message; }  // design doc #2
 
-public:
+private:
 	int 		m_manaCost;
 	int 		m_damage;
 	int 		m_heal; 

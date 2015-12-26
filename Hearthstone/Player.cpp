@@ -186,12 +186,18 @@ int		Player::PrintHand( bool includeIndices ) const
 
 //----------------------------------------------------------------
 
+// I realize that this breaks the encapsulation of the card, and could be done 
+// at least differently. I didn't consider the refactor until I had finished 
+// the final version and to modify it now would break the time constraints, so I 
+// just added this comment. This version is fine for now, but could be refactored 
+// to support inheritance od the cards better.
+
 void	Player::ApplyCard( const Card& card, Player& opponent )
 {
-	if ( card.m_manaCost )
+	if ( card.GetCost() )
 	{
-		assert( card.m_manaCost <= m_mana );// should be checked before playing card
-		m_mana -= card.m_manaCost;
+		assert( card.GetCost() <= m_mana );// should be checked before playing card
+		m_mana -= card.GetCost();
 	}
 	if ( card.GetDamage() ) // design doc #7
 	{
