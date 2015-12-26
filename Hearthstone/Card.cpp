@@ -1,8 +1,11 @@
 #include "Card.h"
-#include <assert.h>
+#include "Global.h"
 
+#include <assert.h>
 #include <iostream>
 using namespace std;
+
+//----------------------------------------------------------------
 
 Card::Card( int manaCost, int damage, int heal, int cardsDrawn, int manaEarned, const char* name ) :
 	m_manaCost( manaCost ),
@@ -20,6 +23,8 @@ Card::~Card()
 }
 */
 
+//----------------------------------------------------------------
+
 void	Card::PrintStats( int index ) const
 {
 	cout << "------------------------------" << endl;
@@ -36,6 +41,8 @@ void	Card::PrintStats( int index ) const
 	cout << "  manaEarned: " << m_manaEarned << endl;
 	cout << endl;
 }
+
+//----------------------------------------------------------------
 
 void	Card::PrintSimpleStats( int index ) const
 {
@@ -67,11 +74,14 @@ void	Card::PrintSimpleStats( int index ) const
 	cout << endl;
 }
 
+//----------------------------------------------------------------
 
 void	CardDictionary::AddCard( const Card& card )
 {
 	cardList.push_back( card );
 }
+
+//----------------------------------------------------------------
 
 const Card& CardDictionary::GetCard( unsigned int index ) const
 {
@@ -83,6 +93,8 @@ const Card& CardDictionary::GetCard( unsigned int index ) const
 	}
 	return cardList[index];
 }
+
+//----------------------------------------------------------------
 
 int CardDictionary::FindCard( int cost, int damage, int heal, int numToDraw, int manaEarned )
 {
@@ -102,5 +114,7 @@ int CardDictionary::FindCard( int cost, int damage, int heal, int numToDraw, int
 		}
 	}
 
-	return -1;// just for the compiler
+	return Global::invalidCard;// just for the compiler
 }
+
+//----------------------------------------------------------------

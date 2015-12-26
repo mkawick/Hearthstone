@@ -4,9 +4,11 @@
 #include <iostream>
 using namespace std;
 
+//----------------------------------------------------------------
+
 Player::Player( const char* name ) : 
 	m_name( name ),
-	m_health( maximumPlayerHealth ),
+	m_health( Global::maximumPlayerHealth ),
 	m_isDead( false )	
 {
 }
@@ -15,19 +17,23 @@ Player::~Player()
 {
 }
 */
+//----------------------------------------------------------------
+
 void	Player::SetupForNewGame()
 { 
 	m_hand.Clear( );
 	m_deck.Clear( );
 
-	m_health = maximumPlayerHealth;
-	m_mana = playerBeginningMana;
+	m_health = Global::maximumPlayerHealth;
+	m_mana = Global::playerBeginningMana;
 	m_isDead = false;
 }
 
+//----------------------------------------------------------------
+
 void	Player::PickNewHand()
 {
-	int cardCount = numCardsInBeginningHand;
+	int cardCount = Global::numCardsInBeginningHand;
 	if ( cardCount > m_deck.GetNumCards() )
 	{
 		cardCount = m_deck.GetNumCards();
@@ -35,31 +41,37 @@ void	Player::PickNewHand()
 	for ( int i = 0; i < cardCount; ++i )
 	{
 		int numCards = m_deck.GetNumCards();
-		int choice = ChooseRandomNumber( 0, numCards );
+		int choice = Global::ChooseRandomNumber( 0, numCards );
 		m_hand.AddCard( m_deck.GetCard( choice ) );
 		m_deck.RemoveCard( choice );
 	}
 }
+
+//----------------------------------------------------------------
 
 void	Player::DrawCard( bool displayCardStats )
 {
 	auto card = m_deck.GetCard( 0 );
 	if ( displayCardStats )
 	{
-		GetCardFromDictionary( card ).PrintSimpleStats( );
+		Global::GetCardFromDictionary( card ).PrintSimpleStats( );
 	}
 	m_hand.AddCard( card );
 	m_deck.RemoveCard( 0 ); // design doc #5
 }
 
+//----------------------------------------------------------------
+
 bool	Player::PlayCard( unsigned int index, Player& opponent )
 {
 	auto card = m_hand.GetCard( index );
 	
-	ApplyCard( GetCardFromDictionary( card ), opponent );
+	ApplyCard( Global::GetCardFromDictionary( card ), opponent );
 	m_hand.RemoveCard( index );
 	return true;
 }
+
+//----------------------------------------------------------------
 
 bool	Player::ApplyDamage( int damage )
 {
@@ -77,14 +89,16 @@ bool	Player::ApplyDamage( int damage )
 	return false;
 }
 
+//----------------------------------------------------------------
+
 bool	Player::ApplyHealing( int healing )
 {
 	if ( m_isDead == false )
 	{
 		m_health += healing;
-		if ( m_health > maximumPlayerHealth )
+		if ( m_health > Global::maximumPlayerHealth )
 		{
-			m_health = maximumPlayerHealth;
+			m_health = Global::maximumPlayerHealth;
 			cout << "Player has full health: " << m_name << endl;
 		}
 		return true;
@@ -92,12 +106,14 @@ bool	Player::ApplyHealing( int healing )
 	return false;
 }
 
+//----------------------------------------------------------------
+
 void	Player::SetupForNextTurn( int newMana )
 {
 	m_mana += newMana;
-	if ( m_mana > maximumPlayerMana )
+	if ( m_mana > Global::maximumPlayerMana )
 	{
-		m_mana = maximumPlayerMana;
+		m_mana = Global::maximumPlayerMana;
 	}
 	if ( m_mana < 0 )
 	{
@@ -105,17 +121,21 @@ void	Player::SetupForNextTurn( int newMana )
 	}
 }
 
+//----------------------------------------------------------------
+
 bool	Player::HasEnoughManaToPlay() const
 {
 	int  numCards = m_hand.GetNumCards();
 	for ( int i = 0; i < numCards; ++i )
 	{
-		auto card = GetCardFromDictionary( m_hand.GetCard( i ) );
+		auto card = Global::GetCardFromDictionary( m_hand.GetCard( i ) );
 		if ( card.GetCost() <= m_mana )
 			return true;
 	}
 	return false;
 }
+
+//----------------------------------------------------------------
 
 int		Player::PrintState() const
 {
@@ -131,6 +151,8 @@ int		Player::PrintState() const
 	return numOptions;
 }
 
+//----------------------------------------------------------------
+
 // you should not have as much info on your opponent as yourself
 void	Player::PrintAsOpponentState() const 
 {
@@ -141,6 +163,8 @@ void	Player::PrintAsOpponentState() const
 	cout << "------------------------" << endl;
 }
 
+//----------------------------------------------------------------
+
 int		Player::PrintHand( bool includeIndices ) const
 {
 	cout << "          hand   " << endl;
@@ -148,7 +172,7 @@ int		Player::PrintHand( bool includeIndices ) const
 	cout << "------------------------------" << endl;
 	for (int i = 0; i < numCards; ++i)
 	{
-		auto card = GetCardFromDictionary( m_hand.GetCard( i ) );
+		auto card = Global::GetCardFromDictionary( m_hand.GetCard( i ) );
 		int index = i;
 		if (includeIndices == false)
 		{
@@ -159,6 +183,8 @@ int		Player::PrintHand( bool includeIndices ) const
 	cout << "------------------------------" << endl;
 	return numCards;
 }
+
+//----------------------------------------------------------------
 
 void	Player::ApplyCard( const Card& card, Player& opponent )
 {
@@ -192,6 +218,8 @@ void	Player::ApplyCard( const Card& card, Player& opponent )
 	}
 }
 
+//----------------------------------------------------------------
+
 void	Player::DrawMultipleCards( int num )
 {
 	int damageToTake = num - m_deck.GetNumCards();// design doc #9
@@ -214,3 +242,6 @@ void	Player::DrawMultipleCards( int num )
 		ApplyDamage( damageToTake ); // design doc #9
 	}*/
 }
+
+//----------------------------------------------------------------
+//----------------------------------------------------------------

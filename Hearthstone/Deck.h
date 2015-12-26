@@ -3,7 +3,7 @@
 #include <vector>
 #include "Card.h"
 
-typedef std::vector <int> CardList;
+typedef std::vector <int> CardList;/// not actual cards, but indices into the global card list
 
 class Deck
 {
@@ -23,6 +23,7 @@ public:
 
 	// testing
 	const CardList & GetCardList() const { return m_cards; }
+
 private:
 	CardList	m_cards;
 };

@@ -12,6 +12,8 @@
 using namespace std;
 #pragma warning( disable:4996)
 
+//----------------------------------------------------------------
+
 bool	PrintEndOfGameState( const Player& player1, const Player& player2 )
 {
 	bool gameOver = false;
@@ -32,6 +34,8 @@ bool	PrintEndOfGameState( const Player& player1, const Player& player2 )
 	return gameOver;
 }
 
+//----------------------------------------------------------------
+
 void	PrintEndOfTurnMessage()
 {
 	cout << "*************************************" << endl;
@@ -41,9 +45,11 @@ void	PrintEndOfTurnMessage()
 	cout << endl;
 }
 
+//----------------------------------------------------------------
+
 bool	DoesPlayerHaveEnoughManaToContinue( const Player& player )
 {
-	if ( player.HasEnoughManaToPlay() == 0 )
+	if ( player.HasEnoughManaToPlay() == false )
 	{
 		cout << endl;
 		cout << "*************************************" << endl;
@@ -54,6 +60,8 @@ bool	DoesPlayerHaveEnoughManaToContinue( const Player& player )
 	}
 	return true;
 }
+
+//----------------------------------------------------------------
 
 void ApplyDamageIfPlayerIsOutOfCards( Player& player )
 {
@@ -66,6 +74,8 @@ void ApplyDamageIfPlayerIsOutOfCards( Player& player )
 		player.ApplyDamage( 1 ); // design doc #9
 	}
 }
+
+//----------------------------------------------------------------
 
 int	HandleUserOption( const string& mystr, int numOptions)
 {
@@ -81,10 +91,12 @@ int	HandleUserOption( const string& mystr, int numOptions)
 	return choice;
 }
 
+//----------------------------------------------------------------
+
 bool	PlayCard( Player& attacker, Player& defender, int choice )
 {
 	Deck& attackerDeck = attacker.GetHand();
-	auto card = GetCardFromDictionary( attackerDeck.GetCard( choice ) );
+	auto card = Global::GetCardFromDictionary( attackerDeck.GetCard( choice ) );
 	cout << "---> card choice was:" << card.GetName() << endl;
 
 	if ( card.GetCost() <= attacker.GetMana() )
@@ -100,6 +112,8 @@ bool	PlayCard( Player& attacker, Player& defender, int choice )
 		return false;
 	}
 }
+
+//----------------------------------------------------------------
 
 void	PlayTurn( Player& attacker, Player& defender, const Deck& deck )
 {
@@ -141,20 +155,22 @@ void	PlayTurn( Player& attacker, Player& defender, const Deck& deck )
 		PlayCard( attacker, defender, choice );
 	}
 	
-	WaitForUser();
+	Global::WaitForUser( );
 	cout << "====================================" << endl;
 	cout << "            player switch" << endl;
 	cout << "====================================" << endl;
 }
 
+//----------------------------------------------------------------
 
-
-void	PlayGame( Player& player1, Player& player2, const Deck& deck )
+void	PlayGame( Player& player1, Player& player2, const Deck& sourceDeckOfCards )
 {
 	player1.SetupForNewGame();
 	player2.SetupForNewGame();
-	InitialzeDeckRandomly( player1, deck );
-	InitialzeDeckRandomly( player2, deck );
+
+	Global::InitialzeDeckRandomly( player1, sourceDeckOfCards );
+	Global::InitialzeDeckRandomly( player2, sourceDeckOfCards );
+
 	player1.PickNewHand();
 	player2.PickNewHand();
 
@@ -165,22 +181,32 @@ void	PlayGame( Player& player1, Player& player2, const Deck& deck )
 
 	while ( PrintEndOfGameState( player1, player2 ) == false )
 	{
-		PlayTurn( player1, player2, deck );
+		PlayTurn( player1, player2, sourceDeckOfCards );
 		if ( PrintEndOfGameState( player1, player2 ) == true )
 			break;
 
-		PlayTurn( player2, player1, deck );
+		PlayTurn( player2, player1, sourceDeckOfCards );
 	}
 }
 
+//----------------------------------------------------------------
+
+/*
+The idea is that there is a global deck which is the dictionary or definition of all 
+available cards. Then we select the proper number of each cards and store those. 
+Then, each player gets a copy and shuffles it.
+This allows us to initialize the data once and reuse it across multiple game instances 
+saving memory and initialization. Otherwise, guaranteeing the right number of 
+cards is not centralized and leads to more complex code.
+*/
 
 int main( int argc, const char* argv[] )
 {
-	Deck deck;
+	Deck sourceDeckOfCards;
 	Player player1( "player1" ), player2( "player2" );
 
-	PrepGlobalDeck();// basically loading all cards into memory
-	deck.PrepBasicDeck();	
+	Global::PrepGlobalDeck( );// basically loading all cards into memory
+	sourceDeckOfCards.PrepBasicDeck();	// now setup by proper counts and values.. design doc #2
 
 #ifdef TESTING
 	WaitForUser();
@@ -194,14 +220,14 @@ int main( int argc, const char* argv[] )
 	WaitForUser();
 #endif
 	
-	PlayGame( player1, player2, deck ); // we could put a menuing system here to allow a restart, historical tracking, etc
+	PlayGame( player1, player2, sourceDeckOfCards ); // we could put a menuing system here to allow a restart, historical tracking, etc
 
 	cout << endl;
 	cout << "*******************************" << endl;
 	cout << "        Game is ended" << endl;
 	cout << "*******************************" << endl;
 
-	WaitForUser();
+	Global::WaitForUser( );
 
 	return 0;
 }

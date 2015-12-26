@@ -8,15 +8,13 @@
 using namespace std;
 #include "Global.h"
 #pragma warning( disable:4996)
-
-const int playerBeginningMana = 1;		// design doc #1
-const int maximumPlayerMana = 10;		// design doc #1
-const int maximumPlayerHealth = 30;		// design doc #4
-const int numCardsInBeginningHand = 4;	// design doc #4
+using namespace Global;
 
 CardDictionary		globalCardDictionary;
 
-void	Print( const Deck& deck )
+//----------------------------------------------------------------
+
+void	Global::Print( const Deck& deck )
 {
 	int num = deck.GetNumCards();
 	for ( int i = 0; i<num; ++i )
@@ -25,7 +23,9 @@ void	Print( const Deck& deck )
 	}
 }
 
-void	RandomizeWithIndices( std::vector <int>& indices, int num )
+//----------------------------------------------------------------
+
+void	Global::RandomizeWithIndices( std::vector <int>& indices, int num )
 {
 	indices.clear();
 	for ( int i = 0; i<num; ++i ) 
@@ -47,13 +47,15 @@ void	RandomizeWithIndices( std::vector <int>& indices, int num )
 	cout << endl;
 }
 
-void	InitialzeDeckRandomly( Player& deckReceiver, const Deck& availableDeck )
+//----------------------------------------------------------------
+
+void	Global::InitialzeDeckRandomly( Player& deckReceiver, const Deck& availableDeck )
 {
-	assert( IsGlobalDeckLoaded( ) == true );
+	assert( Global::IsGlobalDeckLoaded( ) == true );
 
 	int num = availableDeck.GetNumCards();
 	std::vector <int> indices;
-	RandomizeWithIndices( indices, num );
+	Global::RandomizeWithIndices( indices, num );
 
 	Deck& deck = deckReceiver.GetDeck();// acting directly on the data
 
@@ -63,9 +65,11 @@ void	InitialzeDeckRandomly( Player& deckReceiver, const Deck& availableDeck )
 	}
 }
 
-void	InitialzeDeckInOrder( Player& deckReceiver, const Deck& availableDeck )
+//----------------------------------------------------------------
+
+void	Global::InitialzeDeckInOrder( Player& deckReceiver, const Deck& availableDeck )
 {
-	assert( IsGlobalDeckLoaded( ) == true );
+	assert( Global::IsGlobalDeckLoaded( ) == true );
 
 	int num = availableDeck.GetNumCards();
 
@@ -78,7 +82,9 @@ void	InitialzeDeckInOrder( Player& deckReceiver, const Deck& availableDeck )
 	}
 }
 
-int		ChooseRandomNumber( int rangeMin, int rangeMax )
+//----------------------------------------------------------------
+
+int		Global::ChooseRandomNumber( int rangeMin, int rangeMax )
 {
 	// I realize that this is imperfect for random number generation
 	// but it makes testing easier since the numbers are always the same
@@ -88,19 +94,25 @@ int		ChooseRandomNumber( int rangeMin, int rangeMax )
 	// this is much better using c++ 11 random
 }
 
-void	WaitForUser()
+//----------------------------------------------------------------
+
+void	Global::WaitForUser( )
 {
 	cout << "press any key to continue" << endl;
 	getch();
 }
 
-bool	IsGlobalDeckLoaded()
+//----------------------------------------------------------------
+
+bool	Global::IsGlobalDeckLoaded( )
 {
 	return globalCardDictionary.GetNumCards() > 0;
 }
 
+//----------------------------------------------------------------
+
 // this should be read in from a file or some other data source. But given the specifics of the design doc...
-void	PrepGlobalDeck()  // design doc #2
+void	Global::PrepGlobalDeck( )  // design doc #2
 {
 	Card card_a( 1, 1, 0, 0, 0, "deal 1 damage and cost 1 mana" );
 	globalCardDictionary.AddCard( card_a );
@@ -131,12 +143,16 @@ void	PrepGlobalDeck()  // design doc #2
 	globalCardDictionary.AddCard( card_i );
 }
 
-int		GetDictionarySize()
+//----------------------------------------------------------------
+
+int		Global::GetDictionarySize( )
 {
 	return globalCardDictionary.GetNumCards();
 }
 
-const Card& GetCardFromDictionary( int index )
+//----------------------------------------------------------------
+
+const Card& Global::GetCardFromDictionary( int index )
 {
 	assert( index < globalCardDictionary.GetNumCards() );
 	if ( index >= globalCardDictionary.GetNumCards() )
@@ -147,7 +163,13 @@ const Card& GetCardFromDictionary( int index )
 	return globalCardDictionary.GetCard( index );
 }
 
-int		FindCardInDictionary( int cost, int damage, int heal, int numToDraw, int manaEarned )
+//----------------------------------------------------------------
+
+int		Global::FindCardInDictionary( int cost, int damage, int heal, int numToDraw, int manaEarned )
 {
 	return	globalCardDictionary.FindCard( cost, damage, heal, numToDraw, manaEarned );
 }
+
+//----------------------------------------------------------------
+//----------------------------------------------------------------
+

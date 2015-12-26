@@ -6,13 +6,15 @@
 using namespace std;
 #include "Global.h"
 
+//----------------------------------------------------------------
+
 // just system tests to prove out basic functionality
 void	ApplySimpleCardTest( Player& attacker, Player& defender, const Deck& deck )
 {
 	attacker.SetupForNewGame();
 	defender.SetupForNewGame();
-	InitialzeDeckRandomly( attacker, deck );
-	InitialzeDeckRandomly( defender, deck );
+	Global::InitialzeDeckRandomly( attacker, deck );
+	Global::InitialzeDeckRandomly( defender, deck );
 	attacker.PickNewHand();
 	defender.PickNewHand();
 
@@ -39,7 +41,7 @@ void	ApplySimpleCardTest( Player& attacker, Player& defender, const Deck& deck )
 
 	for ( int i = 0; i < attackerDeck.GetNumCards(); ++i )// the number of cards may change
 	{
-		auto card = GetCardFromDictionary( attackerDeck.GetCard( i ) );
+		auto card = Global::GetCardFromDictionary( attackerDeck.GetCard( i ) );
 		if ( card.GetCost() <= attacker.GetMana() )
 		{
 			attacker.PlayCard( i, defender );
@@ -58,7 +60,7 @@ void	ApplySimpleCardTest( Player& attacker, Player& defender, const Deck& deck )
 
 	for ( int i = 0; i < defenderDeck.GetNumCards(); ++i )// the number of cards may change
 	{
-		auto card = GetCardFromDictionary( defenderDeck.GetCard( i ) );
+		auto card = Global::GetCardFromDictionary( defenderDeck.GetCard( i ) );
 		if ( card.GetCost() <= defender.GetMana() )
 		{
 			defender.PlayCard( i, attacker );
@@ -68,24 +70,29 @@ void	ApplySimpleCardTest( Player& attacker, Player& defender, const Deck& deck )
 
 }
 
+//----------------------------------------------------------------
+
 void	ApplySimpleCardTest2( Player& player1, Player& player2, const Deck& deck )
 {
 	player1.SetupForNewGame();
 	player2.PrintState();
 	player2.SetupForNewGame();
 
-	InitialzeDeckInOrder( player1, deck );
-	InitialzeDeckInOrder( player2, deck );
+	Global::InitialzeDeckInOrder( player1, deck );
+	Global::InitialzeDeckInOrder( player2, deck );
 
-	int cardIndex = FindCardInDictionary( 5, 4, 0, 0, 1 );
+	int cardIndex = Global::FindCardInDictionary( 5, 4, 0, 0, 1 );
 	player1.GiveMana( 128 );
 	player2.GiveMana( 1 );
 
 	for ( int i = 0; i < 7; ++i ) // kill player 2
-		player1.ApplyCard( GetCardFromDictionary( FindCardInDictionary( 5, 4, 0, 0, 1 ) ), player2 );// damage
+		player1.ApplyCard( Global::GetCardFromDictionary( Global::FindCardInDictionary( 5, 4, 0, 0, 1 ) ), player2 );// damage
 
-	player1.ApplyCard( GetCardFromDictionary( FindCardInDictionary( 2, 0, 2, 0, 0 ) ), player2 );// healing
-	player2.ApplyCard( GetCardFromDictionary( FindCardInDictionary( 2, 0, 2, 0, 0 ) ), player1 );
+	player1.ApplyCard( Global::GetCardFromDictionary( Global::FindCardInDictionary( 2, 0, 2, 0, 0 ) ), player2 );// healing
+	player2.ApplyCard( Global::GetCardFromDictionary( Global::FindCardInDictionary( 2, 0, 2, 0, 0 ) ), player1 );
 
-	player1.ApplyCard( GetCardFromDictionary( FindCardInDictionary( 5, 4, 0, 0, 1 ) ), player2 );// damage
+	player1.ApplyCard( Global::GetCardFromDictionary( Global::FindCardInDictionary( 5, 4, 0, 0, 1 ) ), player2 );// damage
 }
+
+//----------------------------------------------------------------
+//----------------------------------------------------------------

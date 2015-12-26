@@ -3,13 +3,16 @@
 #include "Deck.h"
 #include "Global.h"
 
+// Each player has his own deck as seen here. These are randomly choosen from the global deck
+// which is initialized before the palyers are created.
+
 class Player
 {
 public:
 	Player( const char* name );
 	//~Player(); default d'tor is fine
 
-	bool	IsDead() const { if (m_health == 0) return true; return false; }
+	bool	IsDead() const { return m_isDead; }
 	int		GetHealth() const { return m_health; }
 	int		GetMana() const { return m_mana; }
 	const std::string& GetName() const { return m_name; }

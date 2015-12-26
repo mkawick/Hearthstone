@@ -27,7 +27,18 @@
 
 The overall design is a hybrid, mostly taking advantage of C++ and encapsulation
 but avoid inheritance because it adds little in a purely data driven model. 
-(it pains me to say that being such such an OOD guy) 
+(it pains me to say that being such such an OOD/OOP guy). 
+
+Currently, the text is not colored which would help tremendouosly and the output and code 
+are mixed together. Both of these would be great, but there simply is not enough time.
+
+If I had had more time, I would have added a game state object to manage control input and 
+allow some sort of menuing and flow control. Then I could have avoided the use of globals
+and global functions and put those into the game state model.
+
+Another design shortcut I took was allowing direct access to the Player's hand and deck.
+you shouldn't allow direct access from externally, but I broke encapsulation to speed delivery
+given my time constraints.
 
 I spent a fair amount of time testing and refining. This is hardly perfect and needs
 a little love, but you should be able to gather a general sense of my overall C++ chops.

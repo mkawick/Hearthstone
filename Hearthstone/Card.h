@@ -4,14 +4,21 @@
 // excel sheet so this constructor model works.. we could certainly have done the same 
 // through normal accessors
 class Player;
+#pragma once
+
 #include <string>
 #include <vector>
 
 class Card
 {
 public:
+	// I went purely data driven instead of using inheritance. this was mainly because
+	// setting up inheritance creates weird dependencies between AI and card types
+	// and time constraints made me decide that this was the best approach.
+	// ECS may be the best overall design, but I did not have enough time.
+
 	Card( int manaCost, int damage, int heal, int cardsDrawn, int manaEarned, const char* name );
-	//~Card();// default is fine
+	// virtual ~Card();// default is fine but if someone needs to derive from this class
 
 	int 		GetCost() const { return m_manaCost; }
 	int 		GetDamage() const { return m_damage; }
