@@ -114,7 +114,7 @@ int CardDictionary::FindCard( int cost, int damage, int heal, int numToDraw, int
 		}
 	}
 
-	return Global::invalidCard;// just for the compiler
+	return Global::invalidCard;
 }
 
 //----------------------------------------------------------------
