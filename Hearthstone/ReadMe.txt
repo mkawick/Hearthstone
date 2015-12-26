@@ -2,28 +2,29 @@
     CONSOLE APPLICATION : Hearthstone Project Overview
 ========================================================================
 
-// This application is made to be easily extinsible with new cards, new behaviors, etc. I used a 
-// Data-driven model like many other card games on which I have worked. 
+This application is made to be easily extinsible with new cards, new behaviors, etc. I used a 
+Data-driven model like many other card games on which I have worked. 
 
-// I took only a few short cuts. I wanted to 
-// focus of building the most easily extinsible model that I could in the 
-// limited time that I had.
+I took only a few short cuts. I wanted to focus of building the most easily extinsible 
+model that I could in the  limited time that I had.
 
-// you may wonder why I went this route instead of using inheritance. I worked on Agricola, Ascension, and 
-// quite a few other card games and having a purely data driven model is much more flexible.
-// Since you mentioned thinking about the design for the future in the design doc...
+You may wonder why I went this route instead of using inheritance. I worked on Agricola, Ascension, and 
+quite a few other card games and having a purely data driven model is more flexible and forces
+The AI to look at the merits of the cards rather than on particular cards. Plus, you can always 
+inherit for special cases.
+Since you mentioned thinking about the design for the future in the design doc...
 
-// It also means that the AI can be written in a way that doesn't look for specific cards 
-// but looks for potential advantages based on card results as you apply a GA to it. 
-// In any case, I could easily have used an inheritance model, but if I am really thinking for the long-term
-// then a paramaterized model is a little better. This is especially true since none of the cards were truly
-// oddly behaved, although I was tempted with the legendary card, parameters were simply all
-// that was needed.
+It also means that the AI can be written in a way that doesn't look for specific cards 
+but looks for potential advantages based on card results as you apply a GA to it. 
+In any case, I could easily have used an inheritance model, but if I am really thinking for the long-term
+then a paramaterized model is a little better. This is especially true since none of the cards were truly
+oddly behaved, although I was tempted with the legendary card, parameters were simply all
+that was needed.
 
-// I have added comments for each design doc element. You should be able to see how each rule
-// is validatd. The overall design is pretty simple. I didn't bother with "attract" mode
-// or a menuing system since this was not called for. All tests were moved into 
-// Testing .cpp and many global functions and objects were moved into Global.cpp.
+I have added comments for each design doc element. You should be able to see how each rule
+is validatd. The overall design is pretty simple. I didn't bother with "attract" mode
+or a menuing system since this was not called for. All tests were moved into 
+Testing .cpp and many global functions and objects were moved into Global.cpp.
 
 The overall design is a hybrid, mostly taking advantage of C++ and encapsulation
 but avoid inheritance because it adds little in a purely data driven model. 
