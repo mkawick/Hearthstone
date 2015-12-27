@@ -23,6 +23,7 @@ public:
 	void	PickNewHand();
 	void	DrawCard( bool displayCardStats );
 	bool	PlayCard( unsigned int index, Player& opponent );
+	bool	AddMana( int amount );
 	bool	ApplyDamage( int damage );
 	bool	ApplyHealing( int healing );
 
@@ -33,7 +34,8 @@ public:
 	int		PrintState() const;
 	void	PrintAsOpponentState() const;
 	int		PrintHand( bool includeIndices ) const;
-	void	ApplyCard( const Card& card, Player& opponent );
+	//void	ApplyCard( const Card& card, Player& opponent );
+	void	DrawMultipleCards( int num );
 
 #if defined (_DEBUG)
 	void	GiveMana( int amount ) { m_mana += amount; }
@@ -48,6 +50,4 @@ private:
 	int			m_mana;
 	bool		m_isDead;
 	//Deck		m_discardDeck;// this should be part of any card game, but it is not part of this current design
-
-	void	DrawMultipleCards( int num );
 };

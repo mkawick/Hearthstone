@@ -31,6 +31,8 @@ public:
 	void		PrintStats( int index = -1 ) const;
 	void		PrintSimpleStats( int index = -1 ) const;
 
+	void		Play( Player& player, Player& opponent ) const;
+
 	void		AddMessage( const std::string& message ) { m_message = message; }  // design doc #2
 
 private:

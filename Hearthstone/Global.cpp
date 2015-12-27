@@ -51,7 +51,7 @@ void	Global::RandomizeWithIndices( std::vector <int>& indices, int num )
 
 void	Global::InitialzeDeckRandomly( Player& deckReceiver, const Deck& availableDeck )
 {
-	assert( Global::IsGlobalDeckLoaded( ) == true );
+	assert( Global::IsGlobalDeckLoaded() == true );
 
 	int num = availableDeck.GetNumCards();
 	std::vector <int> indices;
@@ -69,7 +69,7 @@ void	Global::InitialzeDeckRandomly( Player& deckReceiver, const Deck& availableD
 
 void	Global::InitialzeDeckInOrder( Player& deckReceiver, const Deck& availableDeck )
 {
-	assert( Global::IsGlobalDeckLoaded( ) == true );
+	assert( Global::IsGlobalDeckLoaded() == true );
 
 	int num = availableDeck.GetNumCards();
 
@@ -89,14 +89,14 @@ int		Global::ChooseRandomNumber( int rangeMin, int rangeMax )
 	// I realize that this is imperfect for random number generation
 	// but it makes testing easier since the numbers are always the same
 
-	return rand( ) % (rangeMax - rangeMin) + rangeMin;
+	return rand() % (rangeMax - rangeMin) + rangeMin;
 	
 	// this is much better using c++ 11 random
 }
 
 //----------------------------------------------------------------
 
-void	Global::WaitForUser( )
+void	Global::WaitForUser()
 {
 	cout << "press any key to continue" << endl;
 	getch();
@@ -104,7 +104,7 @@ void	Global::WaitForUser( )
 
 //----------------------------------------------------------------
 
-bool	Global::IsGlobalDeckLoaded( )
+bool	Global::IsGlobalDeckLoaded()
 {
 	return globalCardDictionary.GetNumCards() > 0;
 }
@@ -112,7 +112,7 @@ bool	Global::IsGlobalDeckLoaded( )
 //----------------------------------------------------------------
 
 // this should be read in from a file or some other data source. But given the specifics of the design doc...
-void	Global::PrepGlobalDeck( )  // design doc #2
+void	Global::PrepGlobalDeck()  // design doc #2
 {
 	Card card_a( 1, 1, 0, 0, 0, "deal 1 damage and cost 1 mana" );
 	globalCardDictionary.AddCard( card_a );
@@ -145,7 +145,7 @@ void	Global::PrepGlobalDeck( )  // design doc #2
 
 //----------------------------------------------------------------
 
-int		Global::GetDictionarySize( )
+int		Global::GetDictionarySize()
 {
 	return globalCardDictionary.GetNumCards();
 }

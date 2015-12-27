@@ -155,7 +155,7 @@ void	PlayTurn( Player& attacker, Player& defender, const Deck& deck )
 		PlayCard( attacker, defender, choice );
 	}
 	
-	Global::WaitForUser( );
+	Global::WaitForUser();
 	cout << "====================================" << endl;
 	cout << "            player switch" << endl;
 	cout << "====================================" << endl;
@@ -208,7 +208,7 @@ int main( int argc, const char* argv[] )
 	Deck sourceDeckOfCards;
 	Player player1( "player1" ), player2( "player2" );
 
-	Global::PrepGlobalDeck( );// basically loading all cards into memory
+	Global::PrepGlobalDeck();// basically loading all cards into memory
 	sourceDeckOfCards.PrepBasicDeck();	// now setup by proper counts and values.. design doc #2
 
 #ifdef TESTING
@@ -230,7 +230,7 @@ int main( int argc, const char* argv[] )
 	cout << "        Game is ended" << endl;
 	cout << "*******************************" << endl;
 
-	Global::WaitForUser( );
+	Global::WaitForUser();
 
 	return 0;
 }

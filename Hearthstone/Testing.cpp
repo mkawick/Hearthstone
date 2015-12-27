@@ -86,12 +86,20 @@ void	ApplySimpleCardTest2( Player& player1, Player& player2, const Deck& deck )
 	player2.GiveMana( 1 );
 
 	for ( int i = 0; i < 7; ++i ) // kill player 2
-		player1.ApplyCard( Global::GetCardFromDictionary( Global::FindCardInDictionary( 5, 4, 0, 0, 1 ) ), player2 );// damage
+		Global::GetCardFromDictionary( Global::FindCardInDictionary( 5, 4, 0, 0, 1 ) ).Play( player1, player2 );// damage
+
+	Global::GetCardFromDictionary( Global::FindCardInDictionary( 2, 0, 2, 0, 0 ) ).Play( player1, player2 );// healing
+	Global::GetCardFromDictionary( Global::FindCardInDictionary( 2, 0, 2, 0, 0 ) ).Play( player2, player1 );// healing
+
+	Global::GetCardFromDictionary( Global::FindCardInDictionary( 5, 4, 0, 0, 1 ) ).Play( player1, player2 );// damage
+
+
+	/*	player1.ApplyCard( Global::GetCardFromDictionary( Global::FindCardInDictionary( 5, 4, 0, 0, 1 ) ), player2 );// damage
 
 	player1.ApplyCard( Global::GetCardFromDictionary( Global::FindCardInDictionary( 2, 0, 2, 0, 0 ) ), player2 );// healing
 	player2.ApplyCard( Global::GetCardFromDictionary( Global::FindCardInDictionary( 2, 0, 2, 0, 0 ) ), player1 );
 
-	player1.ApplyCard( Global::GetCardFromDictionary( Global::FindCardInDictionary( 5, 4, 0, 0, 1 ) ), player2 );// damage
+	player1.ApplyCard( Global::GetCardFromDictionary( Global::FindCardInDictionary( 5, 4, 0, 0, 1 ) ), player2 );// damage*/
 }
 
 //----------------------------------------------------------------

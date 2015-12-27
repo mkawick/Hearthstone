@@ -21,8 +21,8 @@ Player::~Player()
 
 void	Player::SetupForNewGame()
 { 
-	m_hand.Clear( );
-	m_deck.Clear( );
+	m_hand.Clear();
+	m_deck.Clear();
 
 	m_health = Global::maximumPlayerHealth;
 	m_mana = Global::playerBeginningMana;
@@ -54,7 +54,7 @@ void	Player::DrawCard( bool displayCardStats )
 	auto card = m_deck.GetCard( 0 );
 	if ( displayCardStats )
 	{
-		Global::GetCardFromDictionary( card ).PrintSimpleStats( );
+		Global::GetCardFromDictionary( card ).PrintSimpleStats();
 	}
 	m_hand.AddCard( card );
 	m_deck.RemoveCard( 0 ); // design doc #5
@@ -66,8 +66,23 @@ bool	Player::PlayCard( unsigned int index, Player& opponent )
 {
 	auto card = m_hand.GetCard( index );
 	
-	ApplyCard( Global::GetCardFromDictionary( card ), opponent );
+	Global::GetCardFromDictionary( card ).Play( *this, opponent );
+	//ApplyCard( Global::GetCardFromDictionary( card ), opponent );
 	m_hand.RemoveCard( index );
+	return true;
+}
+
+//----------------------------------------------------------------
+
+bool	Player::AddMana( int amount )
+{
+	assert( amount > -Global::maximumPlayerMana && amount < Global::maximumPlayerMana );
+	m_mana += amount;
+	if ( m_mana < 0 )
+		m_mana = 0;
+	if ( m_mana > Global::maximumPlayerMana )
+		m_mana = Global::maximumPlayerMana;
+
 	return true;
 }
 
@@ -186,12 +201,13 @@ int		Player::PrintHand( bool includeIndices ) const
 
 //----------------------------------------------------------------
 
-// I realize that this breaks the encapsulation of the card, and could be done 
-// at least differently. I didn't consider the refactor until I had finished 
-// the final version and to modify it now would break the time constraints, so I 
-// just added this comment. This version is fine for now, but could be refactored 
-// to support inheritance od the cards better.
+// I struggled with the design... it felt like the player should be 
+// attacking the other player so my first working implementation was this
+// version. But it broke the encapsulation of the card too much and 
+// didn't allow easily new card features... this should be entirely 
+// encapsulated in the card.
 
+/*
 void	Player::ApplyCard( const Card& card, Player& opponent )
 {
 	if ( card.GetCost() )
@@ -222,7 +238,7 @@ void	Player::ApplyCard( const Card& card, Player& opponent )
 	{
 		cout << card.GetMessage() << endl;
 	}
-}
+}*/
 
 //----------------------------------------------------------------
 

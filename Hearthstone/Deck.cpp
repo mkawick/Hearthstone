@@ -55,7 +55,7 @@ void	Deck::RemoveCard( unsigned int index )
 
 void	Deck::PrepBasicDeck()  // design doc #2
 {
-	assert( Global::IsGlobalDeckLoaded( ) == true );
+	assert( Global::IsGlobalDeckLoaded() == true );
 
 	// this configuration should be read in from a file or other means.
 	// I didn't give this much thought because the design was unclear as to the

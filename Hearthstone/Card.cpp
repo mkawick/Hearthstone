@@ -1,5 +1,6 @@
 #include "Card.h"
 #include "Global.h"
+#include "Player.h"
 
 #include <assert.h>
 #include <iostream>
@@ -74,6 +75,43 @@ void	Card::PrintSimpleStats( int index ) const
 	cout << endl;
 }
 
+//----------------------------------------------------------------
+// I struggled with whether this should go in the player or in the card. Due to long-
+// term extensibility issues, I chose this route.
+
+void	Card::Play( Player& player, Player& opponent ) const
+{
+	if ( GetCost() )
+	{
+		assert( GetCost() <= player.GetMana() );// should be checked before playing card
+		player.AddMana( - GetCost() ); // note negative sign
+	}
+	if ( GetDamage() ) // design doc #7
+	{
+		cout << "Applying damage to " << opponent.GetName() << endl;
+		opponent.ApplyDamage( GetDamage() );
+	}
+	if ( GetHealing() ) // design doc #7
+	{
+		cout << "Applying healing to " << GetName() << endl;
+		player.ApplyHealing( GetHealing() );
+	}
+	if ( GetNumToDraw() )
+	{
+		player.DrawMultipleCards( GetNumToDraw() );
+	}
+	if ( GetManaEarned() )
+	{
+		player.AddMana( GetManaEarned() );
+		cout << "Mana earned: " << GetManaEarned() << endl;
+	}
+	if ( GetMessage().length() )
+	{
+		cout << GetMessage() << endl;
+	}
+}
+
+//----------------------------------------------------------------
 //----------------------------------------------------------------
 
 void	CardDictionary::AddCard( const Card& card )
